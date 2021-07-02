@@ -1,0 +1,251 @@
+---
+title: "Greenbook section III.A.1. Calculation of Vegetation Water Requirement (VWR)"
+author: "Water Department - County of Inyo"
+date: "7/1/2021"
+output: 
+ html_document:
+    df_print: paged
+    code_folding: hide
+    fig_caption: yes
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+---
+```{r setup, include=FALSE}
+library(targets)
+library(tidyverse)
+library(rmarkdown)
+library(DT)
+library(htmlwidgets)
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(tidyverse.quiet = TRUE)
+```
+
+
+
+## Read data
+```{r read-targets}
+cYear <- tar_read(cYear)
+pfw <- tar_read(pointframe_wide)
+pfl <- tar_read(pointframe_long)
+ss <- tar_read(sitesoil)
+vwrmax <- tar_read(vwrmax_lookt)
+lai <- tar_read(pointframe_lai)
+lai_ss <- tar_read(lai_ss)
+lai_ss_vwrmax <- tar_read(lai_ss_vwrmax)
+vwr <- tar_read(vwr)
+weighted.avg. <- tar_read(weighted.avg.)
+vwr.total <- tar_read(vwr.total)
+vwr.wide.period <- tar_read(vwr.wide.period)
+```
+
+```{r pf-wide}
+
+pfw
+```
+
+
+
+```{r read-pf-long}
+
+pfl
+
+```
+
+
+```{r read-site-soil}
+
+ss
+```
+
+```{r read_vwrmax_lookup}
+
+vwrmax
+
+
+# unique(vwrmax$period)
+```
+
+```{r read_pointframe_lai}
+
+lai
+```
+
+```{r join_lai_sitesoil}
+# lai_ss <- lai %>% left_join(ss, by = "site")
+
+lai_ss
+```
+
+```{r join-lai-ss-vwrmax}
+# lai_ss_vwrmax <- lai_ss %>% left_join(vwrmax, by = c('soil','species'))
+# datatable(lai_ss_vwrmax)
+
+lai_ss_vwrmax
+```
+
+```{r compute-vwr}
+# vwr <- lai_ss_vwrmax %>% mutate(vwr = lai*vwr_at_lai_max)
+
+vwr
+# datatable(vwr)
+# 420 rows
+
+# 30 sites, 2 periods, 7 species including other
+# rows <- 30*2*7
+```
+
+## Weighted average VWR/LAI 
+The sum of vwr for six species divided by sum of lai for six co-ocurring species provides estimates for VWRmax for the `OTHER` category.
+
+This value is multiplied by the LAI of the `OTHER` column to obtain VWR for `OTHER`.
+
+```{r compute-weighted-avg}
+
+weighted.avg.
+
+# weighted.avg. <- vwr %>% filter(species != 'OTHER',all.hits >0) %>%  group_by(site,period) %>% summarise(w_avg_vwr_per_lai = sum(vwr)/sum(lai)) %>% mutate(species = 'OTHER')
+# datatable(weighted.avg.)
+```
+
+## Species level VWR
+```{r compute-vwr-species-level}
+# join weighted avg VWR/LAI to vwr by site, species, period, and combined 
+
+vwr.total %>% filter(all.hits > 0) %>% select(site,period,species,lai,total.vwr) %>%  datatable() %>% formatRound(c('lai','total.vwr'),2)
+```
+
+## Site-level VWR
+
+```{r compute-vwr-site}
+# vwr.total <- vwr.total %>% mutate(site.f = factor(site, levels = ns_order))
+
+
+
+vwr.wide.period %>% datatable(caption = paste('Vegetation water requirements July 1 and Oct 1',cYear,' calculated according to Greenbook section III.A.1.')) %>% formatRound(c('july','oct'),2) 
+# %>% htmlwidgets::saveWidget(paste0(cYear,'_jul_oct_vwr.html'))
+
+```
+
+
+
+# Appendix
+
+## Targets
+
+```{r targets-show, eval=FALSE}
+library(targets)
+library(tidyverse)
+library(tarchetypes)
+library(DT)
+
+source("analysis/functions.R")
+tar_option_set(
+  packages = c(
+    "tidyverse",
+    "stringr"
+  )
+
+)
+list(
+  tar_target(cYear, 2020),
+  tar_target(pointframe_file, "data/point_frame.csv", format = "file"),
+  tar_target(pointframe_wide, read.csv(pointframe_file)),
+  tar_target(pointframe_long, pivot_longer_pointframe(pointframe_wide)),
+  tar_target(pointframe_lai, lai(pointframe_long)),
+  tar_target(vwrmax_file, "data/vwr_max_lookup.csv", format = "file"),
+  tar_target(vwrmax_lookt, read.csv(vwrmax_file)),
+  tar_target(sitesoil_file, "data/vwr_site_soil_designation.csv", format = "file"),
+  tar_target(sitesoil, read.csv(sitesoil_file)),
+  tar_target(lai_ss, left_join(sitesoil,pointframe_lai, by = "site")),
+  tar_target(lai_ss_vwrmax,left_join(lai_ss,vwrmax_lookt, by = c('soil','species'))),
+  tar_target(vwr, mutate(lai_ss_vwrmax,vwr = lai*vwr_at_lai_max)),
+  tar_target(weighted.avg., weighted_avg(vwr)),
+  tar_target(vwr.total,vwr_total(vwr,weighted.avg.)),
+  tar_target(vwr.wide.period, vwr_site_total_period(vwr.total, cYear))
+  )
+  
+```
+
+## Functions
+
+```{r functions-show, eval=FALSE}
+
+pivot_longer_pointframe <- function(pointframe_wide){
+  pointframe_wide %>%
+    gather(species, all.hits, SPAI:OTHER)
+}
+
+lai <- function(pointframe_long){
+  pointframe_long %>% mutate(lai = all.hits/334 * 2) %>%
+                             rename(site = SITE)
+
+}
+
+weighted_avg <- function(vwr){
+  vwr %>% filter(species != 'OTHER') %>% filter(all.hits >0) %>%
+    group_by(site,period) %>%
+    summarise(w_avg_vwr_per_lai = sum(vwr)/sum(lai)) %>%
+    mutate(species = 'OTHER')
+}
+
+vwr_total <- function(vwr, weighted.avg.){
+  vwr %>% left_join(weighted.avg., by = c('site', 'species', 'period')) %>%
+    mutate(other.vwr = w_avg_vwr_per_lai * lai,
+           total.vwr = case_when(!is.na(vwr)~vwr,
+                                 !is.na(other.vwr)~other.vwr),
+           site.f = factor(site, levels = c("LW1","LW2",                                                                                                                  "LW3",
+                                                  "BC1",
+                                                  "BC2",
+                                                  "BC3",
+                                                  "BP1",
+                                                  "BP2",
+                                                  "BP3",
+                                                  "BP4",
+                                                  "TA3",
+                                                  "TA4",
+                                                  "TA5",
+                                                  "TA6",
+                                                  "TAC",
+                                                  "TS1",
+                                                  "TS2",
+                                                  "TS3",
+                                                  "TS4",
+                                                  "TSC",
+                                                  "IO1",
+                                                  "IO2",
+                                                  "IC1",
+                                                  "IC2",
+                                                  "SS1",
+                                                  "SS2",
+                                                  "SS3",
+                                                  "SS4",
+                                                  "BG2",
+                                                  "BGC")
+                           )
+  )
+}
+
+vwr_sum_table_fun <- function(vwr.total,cYear){
+  vwr.total %>% filter(all.hits > 0) %>%
+    select(site.f,period,species,lai,total.vwr) %>%
+    group_by(site.f,period) %>%
+    summarise(site.vwr = sum(total.vwr)) %>%
+    pivot_wider(names_from = period, values_from = site.vwr) %>%
+    datatable(caption = paste('Vegetation water requirements July 1 and Oct 1',cYear,' calculated according to Greenbook section III.A.1.')) %>%
+    formatRound(c('july','oct'),2)
+}
+
+vwr_site_total_period <- function(vwr.total,cYear){
+  vwr.total %>% filter(all.hits > 0) %>%
+  select(site.f,period,species,lai,total.vwr) %>%
+  group_by(site.f,period) %>%
+  summarise(site.vwr = sum(total.vwr)) %>%
+  pivot_wider(names_from = period, values_from = site.vwr)
+}
+
+
+```
