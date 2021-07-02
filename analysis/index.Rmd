@@ -7,7 +7,8 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-Click on this [link](point-frame.html) to see my results.
+Vegetation Water Requirement (VWR) Calculations [link](https://github.com/zach-nelson/veg-water-requirement/blob/6190f27b41aa0bb736db22f2363b21d7c2e29bbe/docs/point_frame.html).
+
 
 Archived for reproducibility -  vegetation water requirements (VWR) computed from sampled leaf area at 30 sites - 22 of which control the Green Book on/off pumping management under the Agreement. This format provides the functions, code and version history of the annual VWR calculations necessitated by the Agreement.
 

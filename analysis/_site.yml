@@ -5,6 +5,8 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: VWR
+    href: point_frame.html
   - text: About
     href: about.html
   - text: License
