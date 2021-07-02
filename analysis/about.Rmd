@@ -7,4 +7,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+This webpage documents the vegetation water requirement computations needed each July 1, to implement the groundwater pumping on/off procedure of section III.A of the Green Book.

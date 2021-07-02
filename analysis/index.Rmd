@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "Green Book sec. III.A.1 Calculation of Vegetation Water Requirement (VWR)"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,4 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+Archived for reproducibility -  vegetation water requirements (VWR) computed from sampled leaf area at 30 sites - 22 of which control the Green Book on/off pumping management under the Agreement. This format provides the functions, code and version history of the annual VWR calculations necessitated by the Agreement.
+
+
+
