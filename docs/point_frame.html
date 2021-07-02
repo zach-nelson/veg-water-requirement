@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Water Department - County of Inyo" />
+
+
+<title>Greenbook section III.A.1. Calculation of Vegetation Water Requirement (VWR)</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.15/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">veg-water-requirement</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zach-nelson/veg-water-requirement">
+    <span class="fas fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Greenbook section III.A.1. Calculation of Vegetation Water Requirement (VWR)</h1>
+<h4 class="author">Water Department - County of Inyo</h4>
+<h4 class="date">7/1/2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-07-02
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>veg-water-requirement/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210701code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210701)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210701code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210701)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtree1173965bbb233d9455648ee40758f86a7d12cc74targetblank1173965a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zach-nelson/veg-water-requirement/tree/1173965bbb233d9455648ee40758f86a7d12cc74" target="_blank">1173965</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtree1173965bbb233d9455648ee40758f86a7d12cc74targetblank1173965a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/zach-nelson/veg-water-requirement/tree/1173965bbb233d9455648ee40758f86a7d12cc74" target="_blank">1173965</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/site_libs/
+
+Untracked files:
+    Untracked:  _targets.R
+    Untracked:  _targets.yaml
+    Untracked:  _targets/
+    Untracked:  code/setup.R
+    Untracked:  data/point_frame.csv
+    Untracked:  data/vwr_max_lookup.csv
+    Untracked:  data/vwr_site_soil_designation.csv
+    Untracked:  point_frame.Rmd
+    Untracked:  point_frame.html
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/point_frame.Rmd</code>) and HTML (<code>docs/point_frame.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zach-nelson/veg-water-requirement/blob/1173965bbb233d9455648ee40758f86a7d12cc74/analysis/point_frame.Rmd" target="_blank">1173965</a>
+</td>
+<td>
+zach-nelson
+</td>
+<td>
+2021-07-02
+</td>
+<td>
+add rmd detailing point frame
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="read-data" class="section level2">
+<h2>Read data</h2>
+<pre class="r"><code>cYear &lt;- tar_read(cYear)
+pfw &lt;- tar_read(pointframe_wide)
+pfl &lt;- tar_read(pointframe_long)
+ss &lt;- tar_read(sitesoil)
+vwrmax &lt;- tar_read(vwrmax_lookt)
+lai &lt;- tar_read(pointframe_lai)
+lai_ss &lt;- tar_read(lai_ss)
+lai_ss_vwrmax &lt;- tar_read(lai_ss_vwrmax)
+vwr &lt;- tar_read(vwr)
+weighted.avg. &lt;- tar_read(weighted.avg.)
+vwr.total &lt;- tar_read(vwr.total)
+vwr.wide.period &lt;- tar_read(vwr.wide.period)</code></pre>
+<pre class="r"><code>pfw</code></pre>
+<pre><code>   SITE SPAI DISP CHNA ATTO SAVE ATCO OTHER
+1   LW1   NA   NA   NA   NA   45   NA    NA
+2   LW2   12   NA    5    2   14   NA    NA
+3   LW3   98    5   NA    8    1   NA    NA
+4   BC1    5   NA   27   12   12   NA    18
+5   BC2   NA    8   28   NA   NA   NA     2
+6   BC3    1   17   24   14   NA   NA    20
+7   BP1   16   NA   NA   14   20   NA    NA
+8   BP2   NA   NA   17   21   NA   NA    NA
+9   BP3    1   NA    6   NA   30    1    NA
+10  BP4   NA   NA   NA   11   29   NA     1
+11  TA3   17   NA   NA   11    4   NA    15
+12  TA4   14    3   10   NA   NA   NA     2
+13  TA5    2   NA   NA   NA    4    2     3
+14  TA6   15   NA   11   14   NA   NA    NA
+15  TAC   19   31   NA   39   NA   NA    32
+16  TS1    4   NA   NA   88   NA   NA    NA
+17  TS2   13    2   NA    2   NA   NA    34
+18  TS3   19   32   NA    6   NA   NA    NA
+19  TS4   27   11    6   16   46   NA     7
+20  TSC   17   NA    1   NA    4    3     9
+21  IO1   28   NA   20    5   NA   NA    32
+22  IO2   NA   NA   NA   10   NA   NA    NA
+23  IC1   NA   NA   19   17   NA   NA    15
+24  IC2    4   NA    5   NA   NA   NA     2
+25  SS1   NA   NA   NA   21   11   NA     1
+26  SS2   NA   NA   NA    5   NA   NA     1
+27  SS3   NA   NA   NA   49   NA   NA     1
+28  SS4   NA   NA   NA   23   NA   NA    NA
+29  BG2   NA   NA   NA    6    1   NA     5
+30  BGC    1    4   22   16   NA   NA    NA</code></pre>
+<pre class="r"><code>pfl</code></pre>
+<pre><code>    SITE species all.hits
+1    LW1    SPAI       NA
+2    LW2    SPAI       12
+3    LW3    SPAI       98
+4    BC1    SPAI        5
+5    BC2    SPAI       NA
+6    BC3    SPAI        1
+7    BP1    SPAI       16
+8    BP2    SPAI       NA
+9    BP3    SPAI        1
+10   BP4    SPAI       NA
+11   TA3    SPAI       17
+12   TA4    SPAI       14
+13   TA5    SPAI        2
+14   TA6    SPAI       15
+15   TAC    SPAI       19
+16   TS1    SPAI        4
+17   TS2    SPAI       13
+18   TS3    SPAI       19
+19   TS4    SPAI       27
+20   TSC    SPAI       17
+21   IO1    SPAI       28
+22   IO2    SPAI       NA
+23   IC1    SPAI       NA
+24   IC2    SPAI        4
+25   SS1    SPAI       NA
+26   SS2    SPAI       NA
+27   SS3    SPAI       NA
+28   SS4    SPAI       NA
+29   BG2    SPAI       NA
+30   BGC    SPAI        1
+31   LW1    DISP       NA
+32   LW2    DISP       NA
+33   LW3    DISP        5
+34   BC1    DISP       NA
+35   BC2    DISP        8
+36   BC3    DISP       17
+37   BP1    DISP       NA
+38   BP2    DISP       NA
+39   BP3    DISP       NA
+40   BP4    DISP       NA
+41   TA3    DISP       NA
+42   TA4    DISP        3
+43   TA5    DISP       NA
+44   TA6    DISP       NA
+45   TAC    DISP       31
+46   TS1    DISP       NA
+47   TS2    DISP        2
+48   TS3    DISP       32
+49   TS4    DISP       11
+50   TSC    DISP       NA
+51   IO1    DISP       NA
+52   IO2    DISP       NA
+53   IC1    DISP       NA
+54   IC2    DISP       NA
+55   SS1    DISP       NA
+56   SS2    DISP       NA
+57   SS3    DISP       NA
+58   SS4    DISP       NA
+59   BG2    DISP       NA
+60   BGC    DISP        4
+61   LW1    CHNA       NA
+62   LW2    CHNA        5
+63   LW3    CHNA       NA
+64   BC1    CHNA       27
+65   BC2    CHNA       28
+66   BC3    CHNA       24
+67   BP1    CHNA       NA
+68   BP2    CHNA       17
+69   BP3    CHNA        6
+70   BP4    CHNA       NA
+71   TA3    CHNA       NA
+72   TA4    CHNA       10
+73   TA5    CHNA       NA
+74   TA6    CHNA       11
+75   TAC    CHNA       NA
+76   TS1    CHNA       NA
+77   TS2    CHNA       NA
+78   TS3    CHNA       NA
+79   TS4    CHNA        6
+80   TSC    CHNA        1
+81   IO1    CHNA       20
+82   IO2    CHNA       NA
+83   IC1    CHNA       19
+84   IC2    CHNA        5
+85   SS1    CHNA       NA
+86   SS2    CHNA       NA
+87   SS3    CHNA       NA
+88   SS4    CHNA       NA
+89   BG2    CHNA       NA
+90   BGC    CHNA       22
+91   LW1    ATTO       NA
+92   LW2    ATTO        2
+93   LW3    ATTO        8
+94   BC1    ATTO       12
+95   BC2    ATTO       NA
+96   BC3    ATTO       14
+97   BP1    ATTO       14
+98   BP2    ATTO       21
+99   BP3    ATTO       NA
+100  BP4    ATTO       11
+101  TA3    ATTO       11
+102  TA4    ATTO       NA
+103  TA5    ATTO       NA
+104  TA6    ATTO       14
+105  TAC    ATTO       39
+106  TS1    ATTO       88
+107  TS2    ATTO        2
+108  TS3    ATTO        6
+109  TS4    ATTO       16
+110  TSC    ATTO       NA
+111  IO1    ATTO        5
+112  IO2    ATTO       10
+113  IC1    ATTO       17
+114  IC2    ATTO       NA
+115  SS1    ATTO       21
+116  SS2    ATTO        5
+117  SS3    ATTO       49
+118  SS4    ATTO       23
+119  BG2    ATTO        6
+120  BGC    ATTO       16
+121  LW1    SAVE       45
+122  LW2    SAVE       14
+123  LW3    SAVE        1
+124  BC1    SAVE       12
+125  BC2    SAVE       NA
+126  BC3    SAVE       NA
+127  BP1    SAVE       20
+128  BP2    SAVE       NA
+129  BP3    SAVE       30
+130  BP4    SAVE       29
+131  TA3    SAVE        4
+132  TA4    SAVE       NA
+133  TA5    SAVE        4
+134  TA6    SAVE       NA
+135  TAC    SAVE       NA
+136  TS1    SAVE       NA
+137  TS2    SAVE       NA
+138  TS3    SAVE       NA
+139  TS4    SAVE       46
+140  TSC    SAVE        4
+141  IO1    SAVE       NA
+142  IO2    SAVE       NA
+143  IC1    SAVE       NA
+144  IC2    SAVE       NA
+145  SS1    SAVE       11
+146  SS2    SAVE       NA
+147  SS3    SAVE       NA
+148  SS4    SAVE       NA
+149  BG2    SAVE        1
+150  BGC    SAVE       NA
+151  LW1    ATCO       NA
+152  LW2    ATCO       NA
+153  LW3    ATCO       NA
+154  BC1    ATCO       NA
+155  BC2    ATCO       NA
+156  BC3    ATCO       NA
+157  BP1    ATCO       NA
+158  BP2    ATCO       NA
+159  BP3    ATCO        1
+160  BP4    ATCO       NA
+161  TA3    ATCO       NA
+162  TA4    ATCO       NA
+163  TA5    ATCO        2
+164  TA6    ATCO       NA
+165  TAC    ATCO       NA
+166  TS1    ATCO       NA
+167  TS2    ATCO       NA
+168  TS3    ATCO       NA
+169  TS4    ATCO       NA
+170  TSC    ATCO        3
+171  IO1    ATCO       NA
+172  IO2    ATCO       NA
+173  IC1    ATCO       NA
+174  IC2    ATCO       NA
+175  SS1    ATCO       NA
+176  SS2    ATCO       NA
+177  SS3    ATCO       NA
+178  SS4    ATCO       NA
+179  BG2    ATCO       NA
+180  BGC    ATCO       NA
+181  LW1   OTHER       NA
+182  LW2   OTHER       NA
+183  LW3   OTHER       NA
+184  BC1   OTHER       18
+185  BC2   OTHER        2
+186  BC3   OTHER       20
+187  BP1   OTHER       NA
+188  BP2   OTHER       NA
+189  BP3   OTHER       NA
+190  BP4   OTHER        1
+191  TA3   OTHER       15
+192  TA4   OTHER        2
+193  TA5   OTHER        3
+194  TA6   OTHER       NA
+195  TAC   OTHER       32
+196  TS1   OTHER       NA
+197  TS2   OTHER       34
+198  TS3   OTHER       NA
+199  TS4   OTHER        7
+200  TSC   OTHER        9
+201  IO1   OTHER       32
+202  IO2   OTHER       NA
+203  IC1   OTHER       15
+204  IC2   OTHER        2
+205  SS1   OTHER        1
+206  SS2   OTHER        1
+207  SS3   OTHER        1
+208  SS4   OTHER       NA
+209  BG2   OTHER        5
+210  BGC   OTHER       NA</code></pre>
+<pre class="r"><code>ss</code></pre>
+<pre><code>   site soil
+1   LW1 sand
+2   LW2 sand
+3   LW3 sand
+4   BC1 sand
+5   BC2 silt
+6   BC3 silt
+7   BP1 silt
+8   BP2 sand
+9   BP3 sand
+10  BP4 sand
+11  TA3 silt
+12  TA4 silt
+13  TA5 silt
+14  TA6 silt
+15  TAC silt
+16  TS1 sand
+17  TS2 sand
+18  TS3 sand
+19  TS4 silt
+20  TSC silt
+21  IO1 silt
+22  IO2 silt
+23  IC1 silt
+24  IC2 silt
+25  SS1 silt
+26  SS2 silt
+27  SS3 silt
+28  SS4 silt
+29  BG2 silt
+30  BGC silt</code></pre>
+<pre class="r"><code>vwrmax</code></pre>
+<pre><code>   soil species vwr_at_lai_max period
+1  sand    ATCO           5.60   july
+2  silt    ATCO           5.60   july
+3  sand    ATTO           9.30   july
+4  silt    ATTO           9.30   july
+5  sand    CHNA          18.60   july
+6  silt    CHNA          18.60   july
+7  sand    DISP          10.49   july
+8  silt    DISP          20.00   july
+9  sand    SAVE          17.20   july
+10 silt    SAVE          17.20   july
+11 sand    SPAI           9.59   july
+12 silt    SPAI          16.48   july
+13 sand    ATCO          10.50    oct
+14 silt    ATCO          10.50    oct
+15 sand    ATTO          17.40    oct
+16 silt    ATTO          17.40    oct
+17 sand    CHNA          34.30    oct
+18 silt    CHNA          34.30    oct
+19 sand    DISP          19.30    oct
+20 silt    DISP          37.60    oct
+21 sand    SAVE          30.30    oct
+22 silt    SAVE          30.30    oct
+23 sand    SPAI          17.60    oct
+24 silt    SPAI          31.20    oct
+25 sand   OTHER             NA    oct
+26 silt   OTHER             NA    oct
+27 sand   OTHER             NA   july
+28 silt   OTHER             NA   july</code></pre>
+<pre class="r"><code># unique(vwrmax$period)</code></pre>
+<pre class="r"><code>lai</code></pre>
+<pre><code>    site species all.hits         lai
+1    LW1    SPAI       NA          NA
+2    LW2    SPAI       12 0.071856287
+3    LW3    SPAI       98 0.586826347
+4    BC1    SPAI        5 0.029940120
+5    BC2    SPAI       NA          NA
+6    BC3    SPAI        1 0.005988024
+7    BP1    SPAI       16 0.095808383
+8    BP2    SPAI       NA          NA
+9    BP3    SPAI        1 0.005988024
+10   BP4    SPAI       NA          NA
+11   TA3    SPAI       17 0.101796407
+12   TA4    SPAI       14 0.083832335
+13   TA5    SPAI        2 0.011976048
+14   TA6    SPAI       15 0.089820359
+15   TAC    SPAI       19 0.113772455
+16   TS1    SPAI        4 0.023952096
+17   TS2    SPAI       13 0.077844311
+18   TS3    SPAI       19 0.113772455
+19   TS4    SPAI       27 0.161676647
+20   TSC    SPAI       17 0.101796407
+21   IO1    SPAI       28 0.167664671
+22   IO2    SPAI       NA          NA
+23   IC1    SPAI       NA          NA
+24   IC2    SPAI        4 0.023952096
+25   SS1    SPAI       NA          NA
+26   SS2    SPAI       NA          NA
+27   SS3    SPAI       NA          NA
+28   SS4    SPAI       NA          NA
+29   BG2    SPAI       NA          NA
+30   BGC    SPAI        1 0.005988024
+31   LW1    DISP       NA          NA
+32   LW2    DISP       NA          NA
+33   LW3    DISP        5 0.029940120
+34   BC1    DISP       NA          NA
+35   BC2    DISP        8 0.047904192
+36   BC3    DISP       17 0.101796407
+37   BP1    DISP       NA          NA
+38   BP2    DISP       NA          NA
+39   BP3    DISP       NA          NA
+40   BP4    DISP       NA          NA
+41   TA3    DISP       NA          NA
+42   TA4    DISP        3 0.017964072
+43   TA5    DISP       NA          NA
+44   TA6    DISP       NA          NA
+45   TAC    DISP       31 0.185628743
+46   TS1    DISP       NA          NA
+47   TS2    DISP        2 0.011976048
+48   TS3    DISP       32 0.191616766
+49   TS4    DISP       11 0.065868263
+50   TSC    DISP       NA          NA
+51   IO1    DISP       NA          NA
+52   IO2    DISP       NA          NA
+53   IC1    DISP       NA          NA
+54   IC2    DISP       NA          NA
+55   SS1    DISP       NA          NA
+56   SS2    DISP       NA          NA
+57   SS3    DISP       NA          NA
+58   SS4    DISP       NA          NA
+59   BG2    DISP       NA          NA
+60   BGC    DISP        4 0.023952096
+61   LW1    CHNA       NA          NA
+62   LW2    CHNA        5 0.029940120
+63   LW3    CHNA       NA          NA
+64   BC1    CHNA       27 0.161676647
+65   BC2    CHNA       28 0.167664671
+66   BC3    CHNA       24 0.143712575
+67   BP1    CHNA       NA          NA
+68   BP2    CHNA       17 0.101796407
+69   BP3    CHNA        6 0.035928144
+70   BP4    CHNA       NA          NA
+71   TA3    CHNA       NA          NA
+72   TA4    CHNA       10 0.059880240
+73   TA5    CHNA       NA          NA
+74   TA6    CHNA       11 0.065868263
+75   TAC    CHNA       NA          NA
+76   TS1    CHNA       NA          NA
+77   TS2    CHNA       NA          NA
+78   TS3    CHNA       NA          NA
+79   TS4    CHNA        6 0.035928144
+80   TSC    CHNA        1 0.005988024
+81   IO1    CHNA       20 0.119760479
+82   IO2    CHNA       NA          NA
+83   IC1    CHNA       19 0.113772455
+84   IC2    CHNA        5 0.029940120
+85   SS1    CHNA       NA          NA
+86   SS2    CHNA       NA          NA
+87   SS3    CHNA       NA          NA
+88   SS4    CHNA       NA          NA
+89   BG2    CHNA       NA          NA
+90   BGC    CHNA       22 0.131736527
+91   LW1    ATTO       NA          NA
+92   LW2    ATTO        2 0.011976048
+93   LW3    ATTO        8 0.047904192
+94   BC1    ATTO       12 0.071856287
+95   BC2    ATTO       NA          NA
+96   BC3    ATTO       14 0.083832335
+97   BP1    ATTO       14 0.083832335
+98   BP2    ATTO       21 0.125748503
+99   BP3    ATTO       NA          NA
+100  BP4    ATTO       11 0.065868263
+101  TA3    ATTO       11 0.065868263
+102  TA4    ATTO       NA          NA
+103  TA5    ATTO       NA          NA
+104  TA6    ATTO       14 0.083832335
+105  TAC    ATTO       39 0.233532934
+106  TS1    ATTO       88 0.526946108
+107  TS2    ATTO        2 0.011976048
+108  TS3    ATTO        6 0.035928144
+109  TS4    ATTO       16 0.095808383
+110  TSC    ATTO       NA          NA
+111  IO1    ATTO        5 0.029940120
+112  IO2    ATTO       10 0.059880240
+113  IC1    ATTO       17 0.101796407
+114  IC2    ATTO       NA          NA
+115  SS1    ATTO       21 0.125748503
+116  SS2    ATTO        5 0.029940120
+117  SS3    ATTO       49 0.293413174
+118  SS4    ATTO       23 0.137724551
+119  BG2    ATTO        6 0.035928144
+120  BGC    ATTO       16 0.095808383
+121  LW1    SAVE       45 0.269461078
+122  LW2    SAVE       14 0.083832335
+123  LW3    SAVE        1 0.005988024
+124  BC1    SAVE       12 0.071856287
+125  BC2    SAVE       NA          NA
+126  BC3    SAVE       NA          NA
+127  BP1    SAVE       20 0.119760479
+128  BP2    SAVE       NA          NA
+129  BP3    SAVE       30 0.179640719
+130  BP4    SAVE       29 0.173652695
+131  TA3    SAVE        4 0.023952096
+132  TA4    SAVE       NA          NA
+133  TA5    SAVE        4 0.023952096
+134  TA6    SAVE       NA          NA
+135  TAC    SAVE       NA          NA
+136  TS1    SAVE       NA          NA
+137  TS2    SAVE       NA          NA
+138  TS3    SAVE       NA          NA
+139  TS4    SAVE       46 0.275449102
+140  TSC    SAVE        4 0.023952096
+141  IO1    SAVE       NA          NA
+142  IO2    SAVE       NA          NA
+143  IC1    SAVE       NA          NA
+144  IC2    SAVE       NA          NA
+145  SS1    SAVE       11 0.065868263
+146  SS2    SAVE       NA          NA
+147  SS3    SAVE       NA          NA
+148  SS4    SAVE       NA          NA
+149  BG2    SAVE        1 0.005988024
+150  BGC    SAVE       NA          NA
+151  LW1    ATCO       NA          NA
+152  LW2    ATCO       NA          NA
+153  LW3    ATCO       NA          NA
+154  BC1    ATCO       NA          NA
+155  BC2    ATCO       NA          NA
+156  BC3    ATCO       NA          NA
+157  BP1    ATCO       NA          NA
+158  BP2    ATCO       NA          NA
+159  BP3    ATCO        1 0.005988024
+160  BP4    ATCO       NA          NA
+161  TA3    ATCO       NA          NA
+162  TA4    ATCO       NA          NA
+163  TA5    ATCO        2 0.011976048
+164  TA6    ATCO       NA          NA
+165  TAC    ATCO       NA          NA
+166  TS1    ATCO       NA          NA
+167  TS2    ATCO       NA          NA
+168  TS3    ATCO       NA          NA
+169  TS4    ATCO       NA          NA
+170  TSC    ATCO        3 0.017964072
+171  IO1    ATCO       NA          NA
+172  IO2    ATCO       NA          NA
+173  IC1    ATCO       NA          NA
+174  IC2    ATCO       NA          NA
+175  SS1    ATCO       NA          NA
+176  SS2    ATCO       NA          NA
+177  SS3    ATCO       NA          NA
+178  SS4    ATCO       NA          NA
+179  BG2    ATCO       NA          NA
+180  BGC    ATCO       NA          NA
+181  LW1   OTHER       NA          NA
+182  LW2   OTHER       NA          NA
+183  LW3   OTHER       NA          NA
+184  BC1   OTHER       18 0.107784431
+185  BC2   OTHER        2 0.011976048
+186  BC3   OTHER       20 0.119760479
+187  BP1   OTHER       NA          NA
+188  BP2   OTHER       NA          NA
+189  BP3   OTHER       NA          NA
+190  BP4   OTHER        1 0.005988024
+191  TA3   OTHER       15 0.089820359
+192  TA4   OTHER        2 0.011976048
+193  TA5   OTHER        3 0.017964072
+194  TA6   OTHER       NA          NA
+195  TAC   OTHER       32 0.191616766
+196  TS1   OTHER       NA          NA
+197  TS2   OTHER       34 0.203592814
+198  TS3   OTHER       NA          NA
+199  TS4   OTHER        7 0.041916168
+200  TSC   OTHER        9 0.053892216
+201  IO1   OTHER       32 0.191616766
+202  IO2   OTHER       NA          NA
+203  IC1   OTHER       15 0.089820359
+204  IC2   OTHER        2 0.011976048
+205  SS1   OTHER        1 0.005988024
+206  SS2   OTHER        1 0.005988024
+207  SS3   OTHER        1 0.005988024
+208  SS4   OTHER       NA          NA
+209  BG2   OTHER        5 0.029940120
+210  BGC   OTHER       NA          NA</code></pre>
+<pre class="r"><code># lai_ss &lt;- lai %&gt;% left_join(ss, by = &quot;site&quot;)
+
+lai_ss</code></pre>
+<pre><code>    site soil species all.hits         lai
+1    LW1 sand    SPAI       NA          NA
+2    LW1 sand    DISP       NA          NA
+3    LW1 sand    CHNA       NA          NA
+4    LW1 sand    ATTO       NA          NA
+5    LW1 sand    SAVE       45 0.269461078
+6    LW1 sand    ATCO       NA          NA
+7    LW1 sand   OTHER       NA          NA
+8    LW2 sand    SPAI       12 0.071856287
+9    LW2 sand    DISP       NA          NA
+10   LW2 sand    CHNA        5 0.029940120
+11   LW2 sand    ATTO        2 0.011976048
+12   LW2 sand    SAVE       14 0.083832335
+13   LW2 sand    ATCO       NA          NA
+14   LW2 sand   OTHER       NA          NA
+15   LW3 sand    SPAI       98 0.586826347
+16   LW3 sand    DISP        5 0.029940120
+17   LW3 sand    CHNA       NA          NA
+18   LW3 sand    ATTO        8 0.047904192
+19   LW3 sand    SAVE        1 0.005988024
+20   LW3 sand    ATCO       NA          NA
+21   LW3 sand   OTHER       NA          NA
+22   BC1 sand    SPAI        5 0.029940120
+23   BC1 sand    DISP       NA          NA
+24   BC1 sand    CHNA       27 0.161676647
+25   BC1 sand    ATTO       12 0.071856287
+26   BC1 sand    SAVE       12 0.071856287
+27   BC1 sand    ATCO       NA          NA
+28   BC1 sand   OTHER       18 0.107784431
+29   BC2 silt    SPAI       NA          NA
+30   BC2 silt    DISP        8 0.047904192
+31   BC2 silt    CHNA       28 0.167664671
+32   BC2 silt    ATTO       NA          NA
+33   BC2 silt    SAVE       NA          NA
+34   BC2 silt    ATCO       NA          NA
+35   BC2 silt   OTHER        2 0.011976048
+36   BC3 silt    SPAI        1 0.005988024
+37   BC3 silt    DISP       17 0.101796407
+38   BC3 silt    CHNA       24 0.143712575
+39   BC3 silt    ATTO       14 0.083832335
+40   BC3 silt    SAVE       NA          NA
+41   BC3 silt    ATCO       NA          NA
+42   BC3 silt   OTHER       20 0.119760479
+43   BP1 silt    SPAI       16 0.095808383
+44   BP1 silt    DISP       NA          NA
+45   BP1 silt    CHNA       NA          NA
+46   BP1 silt    ATTO       14 0.083832335
+47   BP1 silt    SAVE       20 0.119760479
+48   BP1 silt    ATCO       NA          NA
+49   BP1 silt   OTHER       NA          NA
+50   BP2 sand    SPAI       NA          NA
+51   BP2 sand    DISP       NA          NA
+52   BP2 sand    CHNA       17 0.101796407
+53   BP2 sand    ATTO       21 0.125748503
+54   BP2 sand    SAVE       NA          NA
+55   BP2 sand    ATCO       NA          NA
+56   BP2 sand   OTHER       NA          NA
+57   BP3 sand    SPAI        1 0.005988024
+58   BP3 sand    DISP       NA          NA
+59   BP3 sand    CHNA        6 0.035928144
+60   BP3 sand    ATTO       NA          NA
+61   BP3 sand    SAVE       30 0.179640719
+62   BP3 sand    ATCO        1 0.005988024
+63   BP3 sand   OTHER       NA          NA
+64   BP4 sand    SPAI       NA          NA
+65   BP4 sand    DISP       NA          NA
+66   BP4 sand    CHNA       NA          NA
+67   BP4 sand    ATTO       11 0.065868263
+68   BP4 sand    SAVE       29 0.173652695
+69   BP4 sand    ATCO       NA          NA
+70   BP4 sand   OTHER        1 0.005988024
+71   TA3 silt    SPAI       17 0.101796407
+72   TA3 silt    DISP       NA          NA
+73   TA3 silt    CHNA       NA          NA
+74   TA3 silt    ATTO       11 0.065868263
+75   TA3 silt    SAVE        4 0.023952096
+76   TA3 silt    ATCO       NA          NA
+77   TA3 silt   OTHER       15 0.089820359
+78   TA4 silt    SPAI       14 0.083832335
+79   TA4 silt    DISP        3 0.017964072
+80   TA4 silt    CHNA       10 0.059880240
+81   TA4 silt    ATTO       NA          NA
+82   TA4 silt    SAVE       NA          NA
+83   TA4 silt    ATCO       NA          NA
+84   TA4 silt   OTHER        2 0.011976048
+85   TA5 silt    SPAI        2 0.011976048
+86   TA5 silt    DISP       NA          NA
+87   TA5 silt    CHNA       NA          NA
+88   TA5 silt    ATTO       NA          NA
+89   TA5 silt    SAVE        4 0.023952096
+90   TA5 silt    ATCO        2 0.011976048
+91   TA5 silt   OTHER        3 0.017964072
+92   TA6 silt    SPAI       15 0.089820359
+93   TA6 silt    DISP       NA          NA
+94   TA6 silt    CHNA       11 0.065868263
+95   TA6 silt    ATTO       14 0.083832335
+96   TA6 silt    SAVE       NA          NA
+97   TA6 silt    ATCO       NA          NA
+98   TA6 silt   OTHER       NA          NA
+99   TAC silt    SPAI       19 0.113772455
+100  TAC silt    DISP       31 0.185628743
+101  TAC silt    CHNA       NA          NA
+102  TAC silt    ATTO       39 0.233532934
+103  TAC silt    SAVE       NA          NA
+104  TAC silt    ATCO       NA          NA
+105  TAC silt   OTHER       32 0.191616766
+106  TS1 sand    SPAI        4 0.023952096
+107  TS1 sand    DISP       NA          NA
+108  TS1 sand    CHNA       NA          NA
+109  TS1 sand    ATTO       88 0.526946108
+110  TS1 sand    SAVE       NA          NA
+111  TS1 sand    ATCO       NA          NA
+112  TS1 sand   OTHER       NA          NA
+113  TS2 sand    SPAI       13 0.077844311
+114  TS2 sand    DISP        2 0.011976048
+115  TS2 sand    CHNA       NA          NA
+116  TS2 sand    ATTO        2 0.011976048
+117  TS2 sand    SAVE       NA          NA
+118  TS2 sand    ATCO       NA          NA
+119  TS2 sand   OTHER       34 0.203592814
+120  TS3 sand    SPAI       19 0.113772455
+121  TS3 sand    DISP       32 0.191616766
+122  TS3 sand    CHNA       NA          NA
+123  TS3 sand    ATTO        6 0.035928144
+124  TS3 sand    SAVE       NA          NA
+125  TS3 sand    ATCO       NA          NA
+126  TS3 sand   OTHER       NA          NA
+127  TS4 silt    SPAI       27 0.161676647
+128  TS4 silt    DISP       11 0.065868263
+129  TS4 silt    CHNA        6 0.035928144
+130  TS4 silt    ATTO       16 0.095808383
+131  TS4 silt    SAVE       46 0.275449102
+132  TS4 silt    ATCO       NA          NA
+133  TS4 silt   OTHER        7 0.041916168
+134  TSC silt    SPAI       17 0.101796407
+135  TSC silt    DISP       NA          NA
+136  TSC silt    CHNA        1 0.005988024
+137  TSC silt    ATTO       NA          NA
+138  TSC silt    SAVE        4 0.023952096
+139  TSC silt    ATCO        3 0.017964072
+140  TSC silt   OTHER        9 0.053892216
+141  IO1 silt    SPAI       28 0.167664671
+142  IO1 silt    DISP       NA          NA
+143  IO1 silt    CHNA       20 0.119760479
+144  IO1 silt    ATTO        5 0.029940120
+145  IO1 silt    SAVE       NA          NA
+146  IO1 silt    ATCO       NA          NA
+147  IO1 silt   OTHER       32 0.191616766
+148  IO2 silt    SPAI       NA          NA
+149  IO2 silt    DISP       NA          NA
+150  IO2 silt    CHNA       NA          NA
+151  IO2 silt    ATTO       10 0.059880240
+152  IO2 silt    SAVE       NA          NA
+153  IO2 silt    ATCO       NA          NA
+154  IO2 silt   OTHER       NA          NA
+155  IC1 silt    SPAI       NA          NA
+156  IC1 silt    DISP       NA          NA
+157  IC1 silt    CHNA       19 0.113772455
+158  IC1 silt    ATTO       17 0.101796407
+159  IC1 silt    SAVE       NA          NA
+160  IC1 silt    ATCO       NA          NA
+161  IC1 silt   OTHER       15 0.089820359
+162  IC2 silt    SPAI        4 0.023952096
+163  IC2 silt    DISP       NA          NA
+164  IC2 silt    CHNA        5 0.029940120
+165  IC2 silt    ATTO       NA          NA
+166  IC2 silt    SAVE       NA          NA
+167  IC2 silt    ATCO       NA          NA
+168  IC2 silt   OTHER        2 0.011976048
+169  SS1 silt    SPAI       NA          NA
+170  SS1 silt    DISP       NA          NA
+171  SS1 silt    CHNA       NA          NA
+172  SS1 silt    ATTO       21 0.125748503
+173  SS1 silt    SAVE       11 0.065868263
+174  SS1 silt    ATCO       NA          NA
+175  SS1 silt   OTHER        1 0.005988024
+176  SS2 silt    SPAI       NA          NA
+177  SS2 silt    DISP       NA          NA
+178  SS2 silt    CHNA       NA          NA
+179  SS2 silt    ATTO        5 0.029940120
+180  SS2 silt    SAVE       NA          NA
+181  SS2 silt    ATCO       NA          NA
+182  SS2 silt   OTHER        1 0.005988024
+183  SS3 silt    SPAI       NA          NA
+184  SS3 silt    DISP       NA          NA
+185  SS3 silt    CHNA       NA          NA
+186  SS3 silt    ATTO       49 0.293413174
+187  SS3 silt    SAVE       NA          NA
+188  SS3 silt    ATCO       NA          NA
+189  SS3 silt   OTHER        1 0.005988024
+190  SS4 silt    SPAI       NA          NA
+191  SS4 silt    DISP       NA          NA
+192  SS4 silt    CHNA       NA          NA
+193  SS4 silt    ATTO       23 0.137724551
+194  SS4 silt    SAVE       NA          NA
+195  SS4 silt    ATCO       NA          NA
+196  SS4 silt   OTHER       NA          NA
+197  BG2 silt    SPAI       NA          NA
+198  BG2 silt    DISP       NA          NA
+199  BG2 silt    CHNA       NA          NA
+200  BG2 silt    ATTO        6 0.035928144
+201  BG2 silt    SAVE        1 0.005988024
+202  BG2 silt    ATCO       NA          NA
+203  BG2 silt   OTHER        5 0.029940120
+204  BGC silt    SPAI        1 0.005988024
+205  BGC silt    DISP        4 0.023952096
+206  BGC silt    CHNA       22 0.131736527
+207  BGC silt    ATTO       16 0.095808383
+208  BGC silt    SAVE       NA          NA
+209  BGC silt    ATCO       NA          NA
+210  BGC silt   OTHER       NA          NA</code></pre>
+<pre class="r"><code># lai_ss_vwrmax &lt;- lai_ss %&gt;% left_join(vwrmax, by = c(&#39;soil&#39;,&#39;species&#39;))
+# datatable(lai_ss_vwrmax)
+
+lai_ss_vwrmax</code></pre>
+<pre><code>    site soil species all.hits         lai vwr_at_lai_max period
+1    LW1 sand    SPAI       NA          NA           9.59   july
+2    LW1 sand    SPAI       NA          NA          17.60    oct
+3    LW1 sand    DISP       NA          NA          10.49   july
+4    LW1 sand    DISP       NA          NA          19.30    oct
+5    LW1 sand    CHNA       NA          NA          18.60   july
+6    LW1 sand    CHNA       NA          NA          34.30    oct
+7    LW1 sand    ATTO       NA          NA           9.30   july
+8    LW1 sand    ATTO       NA          NA          17.40    oct
+9    LW1 sand    SAVE       45 0.269461078          17.20   july
+10   LW1 sand    SAVE       45 0.269461078          30.30    oct
+11   LW1 sand    ATCO       NA          NA           5.60   july
+12   LW1 sand    ATCO       NA          NA          10.50    oct
+13   LW1 sand   OTHER       NA          NA             NA    oct
+14   LW1 sand   OTHER       NA          NA             NA   july
+15   LW2 sand    SPAI       12 0.071856287           9.59   july
+16   LW2 sand    SPAI       12 0.071856287          17.60    oct
+17   LW2 sand    DISP       NA          NA          10.49   july
+18   LW2 sand    DISP       NA          NA          19.30    oct
+19   LW2 sand    CHNA        5 0.029940120          18.60   july
+20   LW2 sand    CHNA        5 0.029940120          34.30    oct
+21   LW2 sand    ATTO        2 0.011976048           9.30   july
+22   LW2 sand    ATTO        2 0.011976048          17.40    oct
+23   LW2 sand    SAVE       14 0.083832335          17.20   july
+24   LW2 sand    SAVE       14 0.083832335          30.30    oct
+25   LW2 sand    ATCO       NA          NA           5.60   july
+26   LW2 sand    ATCO       NA          NA          10.50    oct
+27   LW2 sand   OTHER       NA          NA             NA    oct
+28   LW2 sand   OTHER       NA          NA             NA   july
+29   LW3 sand    SPAI       98 0.586826347           9.59   july
+30   LW3 sand    SPAI       98 0.586826347          17.60    oct
+31   LW3 sand    DISP        5 0.029940120          10.49   july
+32   LW3 sand    DISP        5 0.029940120          19.30    oct
+33   LW3 sand    CHNA       NA          NA          18.60   july
+34   LW3 sand    CHNA       NA          NA          34.30    oct
+35   LW3 sand    ATTO        8 0.047904192           9.30   july
+36   LW3 sand    ATTO        8 0.047904192          17.40    oct
+37   LW3 sand    SAVE        1 0.005988024          17.20   july
+38   LW3 sand    SAVE        1 0.005988024          30.30    oct
+39   LW3 sand    ATCO       NA          NA           5.60   july
+40   LW3 sand    ATCO       NA          NA          10.50    oct
+41   LW3 sand   OTHER       NA          NA             NA    oct
+42   LW3 sand   OTHER       NA          NA             NA   july
+43   BC1 sand    SPAI        5 0.029940120           9.59   july
+44   BC1 sand    SPAI        5 0.029940120          17.60    oct
+45   BC1 sand    DISP       NA          NA          10.49   july
+46   BC1 sand    DISP       NA          NA          19.30    oct
+47   BC1 sand    CHNA       27 0.161676647          18.60   july
+48   BC1 sand    CHNA       27 0.161676647          34.30    oct
+49   BC1 sand    ATTO       12 0.071856287           9.30   july
+50   BC1 sand    ATTO       12 0.071856287          17.40    oct
+51   BC1 sand    SAVE       12 0.071856287          17.20   july
+52   BC1 sand    SAVE       12 0.071856287          30.30    oct
+53   BC1 sand    ATCO       NA          NA           5.60   july
+54   BC1 sand    ATCO       NA          NA          10.50    oct
+55   BC1 sand   OTHER       18 0.107784431             NA    oct
+56   BC1 sand   OTHER       18 0.107784431             NA   july
+57   BC2 silt    SPAI       NA          NA          16.48   july
+58   BC2 silt    SPAI       NA          NA          31.20    oct
+59   BC2 silt    DISP        8 0.047904192          20.00   july
+60   BC2 silt    DISP        8 0.047904192          37.60    oct
+61   BC2 silt    CHNA       28 0.167664671          18.60   july
+62   BC2 silt    CHNA       28 0.167664671          34.30    oct
+63   BC2 silt    ATTO       NA          NA           9.30   july
+64   BC2 silt    ATTO       NA          NA          17.40    oct
+65   BC2 silt    SAVE       NA          NA          17.20   july
+66   BC2 silt    SAVE       NA          NA          30.30    oct
+67   BC2 silt    ATCO       NA          NA           5.60   july
+68   BC2 silt    ATCO       NA          NA          10.50    oct
+69   BC2 silt   OTHER        2 0.011976048             NA    oct
+70   BC2 silt   OTHER        2 0.011976048             NA   july
+71   BC3 silt    SPAI        1 0.005988024          16.48   july
+72   BC3 silt    SPAI        1 0.005988024          31.20    oct
+73   BC3 silt    DISP       17 0.101796407          20.00   july
+74   BC3 silt    DISP       17 0.101796407          37.60    oct
+75   BC3 silt    CHNA       24 0.143712575          18.60   july
+76   BC3 silt    CHNA       24 0.143712575          34.30    oct
+77   BC3 silt    ATTO       14 0.083832335           9.30   july
+78   BC3 silt    ATTO       14 0.083832335          17.40    oct
+79   BC3 silt    SAVE       NA          NA          17.20   july
+80   BC3 silt    SAVE       NA          NA          30.30    oct
+81   BC3 silt    ATCO       NA          NA           5.60   july
+82   BC3 silt    ATCO       NA          NA          10.50    oct
+83   BC3 silt   OTHER       20 0.119760479             NA    oct
+84   BC3 silt   OTHER       20 0.119760479             NA   july
+85   BP1 silt    SPAI       16 0.095808383          16.48   july
+86   BP1 silt    SPAI       16 0.095808383          31.20    oct
+87   BP1 silt    DISP       NA          NA          20.00   july
+88   BP1 silt    DISP       NA          NA          37.60    oct
+89   BP1 silt    CHNA       NA          NA          18.60   july
+90   BP1 silt    CHNA       NA          NA          34.30    oct
+91   BP1 silt    ATTO       14 0.083832335           9.30   july
+92   BP1 silt    ATTO       14 0.083832335          17.40    oct
+93   BP1 silt    SAVE       20 0.119760479          17.20   july
+94   BP1 silt    SAVE       20 0.119760479          30.30    oct
+95   BP1 silt    ATCO       NA          NA           5.60   july
+96   BP1 silt    ATCO       NA          NA          10.50    oct
+97   BP1 silt   OTHER       NA          NA             NA    oct
+98   BP1 silt   OTHER       NA          NA             NA   july
+99   BP2 sand    SPAI       NA          NA           9.59   july
+100  BP2 sand    SPAI       NA          NA          17.60    oct
+101  BP2 sand    DISP       NA          NA          10.49   july
+102  BP2 sand    DISP       NA          NA          19.30    oct
+103  BP2 sand    CHNA       17 0.101796407          18.60   july
+104  BP2 sand    CHNA       17 0.101796407          34.30    oct
+105  BP2 sand    ATTO       21 0.125748503           9.30   july
+106  BP2 sand    ATTO       21 0.125748503          17.40    oct
+107  BP2 sand    SAVE       NA          NA          17.20   july
+108  BP2 sand    SAVE       NA          NA          30.30    oct
+109  BP2 sand    ATCO       NA          NA           5.60   july
+110  BP2 sand    ATCO       NA          NA          10.50    oct
+111  BP2 sand   OTHER       NA          NA             NA    oct
+112  BP2 sand   OTHER       NA          NA             NA   july
+113  BP3 sand    SPAI        1 0.005988024           9.59   july
+114  BP3 sand    SPAI        1 0.005988024          17.60    oct
+115  BP3 sand    DISP       NA          NA          10.49   july
+116  BP3 sand    DISP       NA          NA          19.30    oct
+117  BP3 sand    CHNA        6 0.035928144          18.60   july
+118  BP3 sand    CHNA        6 0.035928144          34.30    oct
+119  BP3 sand    ATTO       NA          NA           9.30   july
+120  BP3 sand    ATTO       NA          NA          17.40    oct
+121  BP3 sand    SAVE       30 0.179640719          17.20   july
+122  BP3 sand    SAVE       30 0.179640719          30.30    oct
+123  BP3 sand    ATCO        1 0.005988024           5.60   july
+124  BP3 sand    ATCO        1 0.005988024          10.50    oct
+125  BP3 sand   OTHER       NA          NA             NA    oct
+126  BP3 sand   OTHER       NA          NA             NA   july
+127  BP4 sand    SPAI       NA          NA           9.59   july
+128  BP4 sand    SPAI       NA          NA          17.60    oct
+129  BP4 sand    DISP       NA          NA          10.49   july
+130  BP4 sand    DISP       NA          NA          19.30    oct
+131  BP4 sand    CHNA       NA          NA          18.60   july
+132  BP4 sand    CHNA       NA          NA          34.30    oct
+133  BP4 sand    ATTO       11 0.065868263           9.30   july
+134  BP4 sand    ATTO       11 0.065868263          17.40    oct
+135  BP4 sand    SAVE       29 0.173652695          17.20   july
+136  BP4 sand    SAVE       29 0.173652695          30.30    oct
+137  BP4 sand    ATCO       NA          NA           5.60   july
+138  BP4 sand    ATCO       NA          NA          10.50    oct
+139  BP4 sand   OTHER        1 0.005988024             NA    oct
+140  BP4 sand   OTHER        1 0.005988024             NA   july
+141  TA3 silt    SPAI       17 0.101796407          16.48   july
+142  TA3 silt    SPAI       17 0.101796407          31.20    oct
+143  TA3 silt    DISP       NA          NA          20.00   july
+144  TA3 silt    DISP       NA          NA          37.60    oct
+145  TA3 silt    CHNA       NA          NA          18.60   july
+146  TA3 silt    CHNA       NA          NA          34.30    oct
+147  TA3 silt    ATTO       11 0.065868263           9.30   july
+148  TA3 silt    ATTO       11 0.065868263          17.40    oct
+149  TA3 silt    SAVE        4 0.023952096          17.20   july
+150  TA3 silt    SAVE        4 0.023952096          30.30    oct
+151  TA3 silt    ATCO       NA          NA           5.60   july
+152  TA3 silt    ATCO       NA          NA          10.50    oct
+153  TA3 silt   OTHER       15 0.089820359             NA    oct
+154  TA3 silt   OTHER       15 0.089820359             NA   july
+155  TA4 silt    SPAI       14 0.083832335          16.48   july
+156  TA4 silt    SPAI       14 0.083832335          31.20    oct
+157  TA4 silt    DISP        3 0.017964072          20.00   july
+158  TA4 silt    DISP        3 0.017964072          37.60    oct
+159  TA4 silt    CHNA       10 0.059880240          18.60   july
+160  TA4 silt    CHNA       10 0.059880240          34.30    oct
+161  TA4 silt    ATTO       NA          NA           9.30   july
+162  TA4 silt    ATTO       NA          NA          17.40    oct
+163  TA4 silt    SAVE       NA          NA          17.20   july
+164  TA4 silt    SAVE       NA          NA          30.30    oct
+165  TA4 silt    ATCO       NA          NA           5.60   july
+166  TA4 silt    ATCO       NA          NA          10.50    oct
+167  TA4 silt   OTHER        2 0.011976048             NA    oct
+168  TA4 silt   OTHER        2 0.011976048             NA   july
+169  TA5 silt    SPAI        2 0.011976048          16.48   july
+170  TA5 silt    SPAI        2 0.011976048          31.20    oct
+171  TA5 silt    DISP       NA          NA          20.00   july
+172  TA5 silt    DISP       NA          NA          37.60    oct
+173  TA5 silt    CHNA       NA          NA          18.60   july
+174  TA5 silt    CHNA       NA          NA          34.30    oct
+175  TA5 silt    ATTO       NA          NA           9.30   july
+176  TA5 silt    ATTO       NA          NA          17.40    oct
+177  TA5 silt    SAVE        4 0.023952096          17.20   july
+178  TA5 silt    SAVE        4 0.023952096          30.30    oct
+179  TA5 silt    ATCO        2 0.011976048           5.60   july
+180  TA5 silt    ATCO        2 0.011976048          10.50    oct
+181  TA5 silt   OTHER        3 0.017964072             NA    oct
+182  TA5 silt   OTHER        3 0.017964072             NA   july
+183  TA6 silt    SPAI       15 0.089820359          16.48   july
+184  TA6 silt    SPAI       15 0.089820359          31.20    oct
+185  TA6 silt    DISP       NA          NA          20.00   july
+186  TA6 silt    DISP       NA          NA          37.60    oct
+187  TA6 silt    CHNA       11 0.065868263          18.60   july
+188  TA6 silt    CHNA       11 0.065868263          34.30    oct
+189  TA6 silt    ATTO       14 0.083832335           9.30   july
+190  TA6 silt    ATTO       14 0.083832335          17.40    oct
+191  TA6 silt    SAVE       NA          NA          17.20   july
+192  TA6 silt    SAVE       NA          NA          30.30    oct
+193  TA6 silt    ATCO       NA          NA           5.60   july
+194  TA6 silt    ATCO       NA          NA          10.50    oct
+195  TA6 silt   OTHER       NA          NA             NA    oct
+196  TA6 silt   OTHER       NA          NA             NA   july
+197  TAC silt    SPAI       19 0.113772455          16.48   july
+198  TAC silt    SPAI       19 0.113772455          31.20    oct
+199  TAC silt    DISP       31 0.185628743          20.00   july
+200  TAC silt    DISP       31 0.185628743          37.60    oct
+201  TAC silt    CHNA       NA          NA          18.60   july
+202  TAC silt    CHNA       NA          NA          34.30    oct
+203  TAC silt    ATTO       39 0.233532934           9.30   july
+204  TAC silt    ATTO       39 0.233532934          17.40    oct
+205  TAC silt    SAVE       NA          NA          17.20   july
+206  TAC silt    SAVE       NA          NA          30.30    oct
+207  TAC silt    ATCO       NA          NA           5.60   july
+208  TAC silt    ATCO       NA          NA          10.50    oct
+209  TAC silt   OTHER       32 0.191616766             NA    oct
+210  TAC silt   OTHER       32 0.191616766             NA   july
+211  TS1 sand    SPAI        4 0.023952096           9.59   july
+212  TS1 sand    SPAI        4 0.023952096          17.60    oct
+213  TS1 sand    DISP       NA          NA          10.49   july
+214  TS1 sand    DISP       NA          NA          19.30    oct
+215  TS1 sand    CHNA       NA          NA          18.60   july
+216  TS1 sand    CHNA       NA          NA          34.30    oct
+217  TS1 sand    ATTO       88 0.526946108           9.30   july
+218  TS1 sand    ATTO       88 0.526946108          17.40    oct
+219  TS1 sand    SAVE       NA          NA          17.20   july
+220  TS1 sand    SAVE       NA          NA          30.30    oct
+221  TS1 sand    ATCO       NA          NA           5.60   july
+222  TS1 sand    ATCO       NA          NA          10.50    oct
+223  TS1 sand   OTHER       NA          NA             NA    oct
+224  TS1 sand   OTHER       NA          NA             NA   july
+225  TS2 sand    SPAI       13 0.077844311           9.59   july
+226  TS2 sand    SPAI       13 0.077844311          17.60    oct
+227  TS2 sand    DISP        2 0.011976048          10.49   july
+228  TS2 sand    DISP        2 0.011976048          19.30    oct
+229  TS2 sand    CHNA       NA          NA          18.60   july
+230  TS2 sand    CHNA       NA          NA          34.30    oct
+231  TS2 sand    ATTO        2 0.011976048           9.30   july
+232  TS2 sand    ATTO        2 0.011976048          17.40    oct
+233  TS2 sand    SAVE       NA          NA          17.20   july
+234  TS2 sand    SAVE       NA          NA          30.30    oct
+235  TS2 sand    ATCO       NA          NA           5.60   july
+236  TS2 sand    ATCO       NA          NA          10.50    oct
+237  TS2 sand   OTHER       34 0.203592814             NA    oct
+238  TS2 sand   OTHER       34 0.203592814             NA   july
+239  TS3 sand    SPAI       19 0.113772455           9.59   july
+240  TS3 sand    SPAI       19 0.113772455          17.60    oct
+241  TS3 sand    DISP       32 0.191616766          10.49   july
+242  TS3 sand    DISP       32 0.191616766          19.30    oct
+243  TS3 sand    CHNA       NA          NA          18.60   july
+244  TS3 sand    CHNA       NA          NA          34.30    oct
+245  TS3 sand    ATTO        6 0.035928144           9.30   july
+246  TS3 sand    ATTO        6 0.035928144          17.40    oct
+247  TS3 sand    SAVE       NA          NA          17.20   july
+248  TS3 sand    SAVE       NA          NA          30.30    oct
+249  TS3 sand    ATCO       NA          NA           5.60   july
+250  TS3 sand    ATCO       NA          NA          10.50    oct
+251  TS3 sand   OTHER       NA          NA             NA    oct
+252  TS3 sand   OTHER       NA          NA             NA   july
+253  TS4 silt    SPAI       27 0.161676647          16.48   july
+254  TS4 silt    SPAI       27 0.161676647          31.20    oct
+255  TS4 silt    DISP       11 0.065868263          20.00   july
+256  TS4 silt    DISP       11 0.065868263          37.60    oct
+257  TS4 silt    CHNA        6 0.035928144          18.60   july
+258  TS4 silt    CHNA        6 0.035928144          34.30    oct
+259  TS4 silt    ATTO       16 0.095808383           9.30   july
+260  TS4 silt    ATTO       16 0.095808383          17.40    oct
+261  TS4 silt    SAVE       46 0.275449102          17.20   july
+262  TS4 silt    SAVE       46 0.275449102          30.30    oct
+263  TS4 silt    ATCO       NA          NA           5.60   july
+264  TS4 silt    ATCO       NA          NA          10.50    oct
+265  TS4 silt   OTHER        7 0.041916168             NA    oct
+266  TS4 silt   OTHER        7 0.041916168             NA   july
+267  TSC silt    SPAI       17 0.101796407          16.48   july
+268  TSC silt    SPAI       17 0.101796407          31.20    oct
+269  TSC silt    DISP       NA          NA          20.00   july
+270  TSC silt    DISP       NA          NA          37.60    oct
+271  TSC silt    CHNA        1 0.005988024          18.60   july
+272  TSC silt    CHNA        1 0.005988024          34.30    oct
+273  TSC silt    ATTO       NA          NA           9.30   july
+274  TSC silt    ATTO       NA          NA          17.40    oct
+275  TSC silt    SAVE        4 0.023952096          17.20   july
+276  TSC silt    SAVE        4 0.023952096          30.30    oct
+277  TSC silt    ATCO        3 0.017964072           5.60   july
+278  TSC silt    ATCO        3 0.017964072          10.50    oct
+279  TSC silt   OTHER        9 0.053892216             NA    oct
+280  TSC silt   OTHER        9 0.053892216             NA   july
+281  IO1 silt    SPAI       28 0.167664671          16.48   july
+282  IO1 silt    SPAI       28 0.167664671          31.20    oct
+283  IO1 silt    DISP       NA          NA          20.00   july
+284  IO1 silt    DISP       NA          NA          37.60    oct
+285  IO1 silt    CHNA       20 0.119760479          18.60   july
+286  IO1 silt    CHNA       20 0.119760479          34.30    oct
+287  IO1 silt    ATTO        5 0.029940120           9.30   july
+288  IO1 silt    ATTO        5 0.029940120          17.40    oct
+289  IO1 silt    SAVE       NA          NA          17.20   july
+290  IO1 silt    SAVE       NA          NA          30.30    oct
+291  IO1 silt    ATCO       NA          NA           5.60   july
+292  IO1 silt    ATCO       NA          NA          10.50    oct
+293  IO1 silt   OTHER       32 0.191616766             NA    oct
+294  IO1 silt   OTHER       32 0.191616766             NA   july
+295  IO2 silt    SPAI       NA          NA          16.48   july
+296  IO2 silt    SPAI       NA          NA          31.20    oct
+297  IO2 silt    DISP       NA          NA          20.00   july
+298  IO2 silt    DISP       NA          NA          37.60    oct
+299  IO2 silt    CHNA       NA          NA          18.60   july
+300  IO2 silt    CHNA       NA          NA          34.30    oct
+301  IO2 silt    ATTO       10 0.059880240           9.30   july
+302  IO2 silt    ATTO       10 0.059880240          17.40    oct
+303  IO2 silt    SAVE       NA          NA          17.20   july
+304  IO2 silt    SAVE       NA          NA          30.30    oct
+305  IO2 silt    ATCO       NA          NA           5.60   july
+306  IO2 silt    ATCO       NA          NA          10.50    oct
+307  IO2 silt   OTHER       NA          NA             NA    oct
+308  IO2 silt   OTHER       NA          NA             NA   july
+309  IC1 silt    SPAI       NA          NA          16.48   july
+310  IC1 silt    SPAI       NA          NA          31.20    oct
+311  IC1 silt    DISP       NA          NA          20.00   july
+312  IC1 silt    DISP       NA          NA          37.60    oct
+313  IC1 silt    CHNA       19 0.113772455          18.60   july
+314  IC1 silt    CHNA       19 0.113772455          34.30    oct
+315  IC1 silt    ATTO       17 0.101796407           9.30   july
+316  IC1 silt    ATTO       17 0.101796407          17.40    oct
+317  IC1 silt    SAVE       NA          NA          17.20   july
+318  IC1 silt    SAVE       NA          NA          30.30    oct
+319  IC1 silt    ATCO       NA          NA           5.60   july
+320  IC1 silt    ATCO       NA          NA          10.50    oct
+321  IC1 silt   OTHER       15 0.089820359             NA    oct
+322  IC1 silt   OTHER       15 0.089820359             NA   july
+323  IC2 silt    SPAI        4 0.023952096          16.48   july
+324  IC2 silt    SPAI        4 0.023952096          31.20    oct
+325  IC2 silt    DISP       NA          NA          20.00   july
+326  IC2 silt    DISP       NA          NA          37.60    oct
+327  IC2 silt    CHNA        5 0.029940120          18.60   july
+328  IC2 silt    CHNA        5 0.029940120          34.30    oct
+329  IC2 silt    ATTO       NA          NA           9.30   july
+330  IC2 silt    ATTO       NA          NA          17.40    oct
+331  IC2 silt    SAVE       NA          NA          17.20   july
+332  IC2 silt    SAVE       NA          NA          30.30    oct
+333  IC2 silt    ATCO       NA          NA           5.60   july
+334  IC2 silt    ATCO       NA          NA          10.50    oct
+335  IC2 silt   OTHER        2 0.011976048             NA    oct
+336  IC2 silt   OTHER        2 0.011976048             NA   july
+337  SS1 silt    SPAI       NA          NA          16.48   july
+338  SS1 silt    SPAI       NA          NA          31.20    oct
+339  SS1 silt    DISP       NA          NA          20.00   july
+340  SS1 silt    DISP       NA          NA          37.60    oct
+341  SS1 silt    CHNA       NA          NA          18.60   july
+342  SS1 silt    CHNA       NA          NA          34.30    oct
+343  SS1 silt    ATTO       21 0.125748503           9.30   july
+344  SS1 silt    ATTO       21 0.125748503          17.40    oct
+345  SS1 silt    SAVE       11 0.065868263          17.20   july
+346  SS1 silt    SAVE       11 0.065868263          30.30    oct
+347  SS1 silt    ATCO       NA          NA           5.60   july
+348  SS1 silt    ATCO       NA          NA          10.50    oct
+349  SS1 silt   OTHER        1 0.005988024             NA    oct
+350  SS1 silt   OTHER        1 0.005988024             NA   july
+351  SS2 silt    SPAI       NA          NA          16.48   july
+352  SS2 silt    SPAI       NA          NA          31.20    oct
+353  SS2 silt    DISP       NA          NA          20.00   july
+354  SS2 silt    DISP       NA          NA          37.60    oct
+355  SS2 silt    CHNA       NA          NA          18.60   july
+356  SS2 silt    CHNA       NA          NA          34.30    oct
+357  SS2 silt    ATTO        5 0.029940120           9.30   july
+358  SS2 silt    ATTO        5 0.029940120          17.40    oct
+359  SS2 silt    SAVE       NA          NA          17.20   july
+360  SS2 silt    SAVE       NA          NA          30.30    oct
+361  SS2 silt    ATCO       NA          NA           5.60   july
+362  SS2 silt    ATCO       NA          NA          10.50    oct
+363  SS2 silt   OTHER        1 0.005988024             NA    oct
+364  SS2 silt   OTHER        1 0.005988024             NA   july
+365  SS3 silt    SPAI       NA          NA          16.48   july
+366  SS3 silt    SPAI       NA          NA          31.20    oct
+367  SS3 silt    DISP       NA          NA          20.00   july
+368  SS3 silt    DISP       NA          NA          37.60    oct
+369  SS3 silt    CHNA       NA          NA          18.60   july
+370  SS3 silt    CHNA       NA          NA          34.30    oct
+371  SS3 silt    ATTO       49 0.293413174           9.30   july
+372  SS3 silt    ATTO       49 0.293413174          17.40    oct
+373  SS3 silt    SAVE       NA          NA          17.20   july
+374  SS3 silt    SAVE       NA          NA          30.30    oct
+375  SS3 silt    ATCO       NA          NA           5.60   july
+376  SS3 silt    ATCO       NA          NA          10.50    oct
+377  SS3 silt   OTHER        1 0.005988024             NA    oct
+378  SS3 silt   OTHER        1 0.005988024             NA   july
+379  SS4 silt    SPAI       NA          NA          16.48   july
+380  SS4 silt    SPAI       NA          NA          31.20    oct
+381  SS4 silt    DISP       NA          NA          20.00   july
+382  SS4 silt    DISP       NA          NA          37.60    oct
+383  SS4 silt    CHNA       NA          NA          18.60   july
+384  SS4 silt    CHNA       NA          NA          34.30    oct
+385  SS4 silt    ATTO       23 0.137724551           9.30   july
+386  SS4 silt    ATTO       23 0.137724551          17.40    oct
+387  SS4 silt    SAVE       NA          NA          17.20   july
+388  SS4 silt    SAVE       NA          NA          30.30    oct
+389  SS4 silt    ATCO       NA          NA           5.60   july
+390  SS4 silt    ATCO       NA          NA          10.50    oct
+391  SS4 silt   OTHER       NA          NA             NA    oct
+392  SS4 silt   OTHER       NA          NA             NA   july
+393  BG2 silt    SPAI       NA          NA          16.48   july
+394  BG2 silt    SPAI       NA          NA          31.20    oct
+395  BG2 silt    DISP       NA          NA          20.00   july
+396  BG2 silt    DISP       NA          NA          37.60    oct
+397  BG2 silt    CHNA       NA          NA          18.60   july
+398  BG2 silt    CHNA       NA          NA          34.30    oct
+399  BG2 silt    ATTO        6 0.035928144           9.30   july
+400  BG2 silt    ATTO        6 0.035928144          17.40    oct
+401  BG2 silt    SAVE        1 0.005988024          17.20   july
+402  BG2 silt    SAVE        1 0.005988024          30.30    oct
+403  BG2 silt    ATCO       NA          NA           5.60   july
+404  BG2 silt    ATCO       NA          NA          10.50    oct
+405  BG2 silt   OTHER        5 0.029940120             NA    oct
+406  BG2 silt   OTHER        5 0.029940120             NA   july
+407  BGC silt    SPAI        1 0.005988024          16.48   july
+408  BGC silt    SPAI        1 0.005988024          31.20    oct
+409  BGC silt    DISP        4 0.023952096          20.00   july
+410  BGC silt    DISP        4 0.023952096          37.60    oct
+411  BGC silt    CHNA       22 0.131736527          18.60   july
+412  BGC silt    CHNA       22 0.131736527          34.30    oct
+413  BGC silt    ATTO       16 0.095808383           9.30   july
+414  BGC silt    ATTO       16 0.095808383          17.40    oct
+415  BGC silt    SAVE       NA          NA          17.20   july
+416  BGC silt    SAVE       NA          NA          30.30    oct
+417  BGC silt    ATCO       NA          NA           5.60   july
+418  BGC silt    ATCO       NA          NA          10.50    oct
+419  BGC silt   OTHER       NA          NA             NA    oct
+420  BGC silt   OTHER       NA          NA             NA   july</code></pre>
+<pre class="r"><code># vwr &lt;- lai_ss_vwrmax %&gt;% mutate(vwr = lai*vwr_at_lai_max)
+
+vwr</code></pre>
+<pre><code>    site soil species all.hits         lai vwr_at_lai_max period         vwr
+1    LW1 sand    SPAI       NA          NA           9.59   july          NA
+2    LW1 sand    SPAI       NA          NA          17.60    oct          NA
+3    LW1 sand    DISP       NA          NA          10.49   july          NA
+4    LW1 sand    DISP       NA          NA          19.30    oct          NA
+5    LW1 sand    CHNA       NA          NA          18.60   july          NA
+6    LW1 sand    CHNA       NA          NA          34.30    oct          NA
+7    LW1 sand    ATTO       NA          NA           9.30   july          NA
+8    LW1 sand    ATTO       NA          NA          17.40    oct          NA
+9    LW1 sand    SAVE       45 0.269461078          17.20   july  4.63473054
+10   LW1 sand    SAVE       45 0.269461078          30.30    oct  8.16467066
+11   LW1 sand    ATCO       NA          NA           5.60   july          NA
+12   LW1 sand    ATCO       NA          NA          10.50    oct          NA
+13   LW1 sand   OTHER       NA          NA             NA    oct          NA
+14   LW1 sand   OTHER       NA          NA             NA   july          NA
+15   LW2 sand    SPAI       12 0.071856287           9.59   july  0.68910180
+16   LW2 sand    SPAI       12 0.071856287          17.60    oct  1.26467066
+17   LW2 sand    DISP       NA          NA          10.49   july          NA
+18   LW2 sand    DISP       NA          NA          19.30    oct          NA
+19   LW2 sand    CHNA        5 0.029940120          18.60   july  0.55688623
+20   LW2 sand    CHNA        5 0.029940120          34.30    oct  1.02694611
+21   LW2 sand    ATTO        2 0.011976048           9.30   july  0.11137725
+22   LW2 sand    ATTO        2 0.011976048          17.40    oct  0.20838323
+23   LW2 sand    SAVE       14 0.083832335          17.20   july  1.44191617
+24   LW2 sand    SAVE       14 0.083832335          30.30    oct  2.54011976
+25   LW2 sand    ATCO       NA          NA           5.60   july          NA
+26   LW2 sand    ATCO       NA          NA          10.50    oct          NA
+27   LW2 sand   OTHER       NA          NA             NA    oct          NA
+28   LW2 sand   OTHER       NA          NA             NA   july          NA
+29   LW3 sand    SPAI       98 0.586826347           9.59   july  5.62766467
+30   LW3 sand    SPAI       98 0.586826347          17.60    oct 10.32814371
+31   LW3 sand    DISP        5 0.029940120          10.49   july  0.31407186
+32   LW3 sand    DISP        5 0.029940120          19.30    oct  0.57784431
+33   LW3 sand    CHNA       NA          NA          18.60   july          NA
+34   LW3 sand    CHNA       NA          NA          34.30    oct          NA
+35   LW3 sand    ATTO        8 0.047904192           9.30   july  0.44550898
+36   LW3 sand    ATTO        8 0.047904192          17.40    oct  0.83353293
+37   LW3 sand    SAVE        1 0.005988024          17.20   july  0.10299401
+38   LW3 sand    SAVE        1 0.005988024          30.30    oct  0.18143713
+39   LW3 sand    ATCO       NA          NA           5.60   july          NA
+40   LW3 sand    ATCO       NA          NA          10.50    oct          NA
+41   LW3 sand   OTHER       NA          NA             NA    oct          NA
+42   LW3 sand   OTHER       NA          NA             NA   july          NA
+43   BC1 sand    SPAI        5 0.029940120           9.59   july  0.28712575
+44   BC1 sand    SPAI        5 0.029940120          17.60    oct  0.52694611
+45   BC1 sand    DISP       NA          NA          10.49   july          NA
+46   BC1 sand    DISP       NA          NA          19.30    oct          NA
+47   BC1 sand    CHNA       27 0.161676647          18.60   july  3.00718563
+48   BC1 sand    CHNA       27 0.161676647          34.30    oct  5.54550898
+49   BC1 sand    ATTO       12 0.071856287           9.30   july  0.66826347
+50   BC1 sand    ATTO       12 0.071856287          17.40    oct  1.25029940
+51   BC1 sand    SAVE       12 0.071856287          17.20   july  1.23592814
+52   BC1 sand    SAVE       12 0.071856287          30.30    oct  2.17724551
+53   BC1 sand    ATCO       NA          NA           5.60   july          NA
+54   BC1 sand    ATCO       NA          NA          10.50    oct          NA
+55   BC1 sand   OTHER       18 0.107784431             NA    oct          NA
+56   BC1 sand   OTHER       18 0.107784431             NA   july          NA
+57   BC2 silt    SPAI       NA          NA          16.48   july          NA
+58   BC2 silt    SPAI       NA          NA          31.20    oct          NA
+59   BC2 silt    DISP        8 0.047904192          20.00   july  0.95808383
+60   BC2 silt    DISP        8 0.047904192          37.60    oct  1.80119760
+61   BC2 silt    CHNA       28 0.167664671          18.60   july  3.11856287
+62   BC2 silt    CHNA       28 0.167664671          34.30    oct  5.75089820
+63   BC2 silt    ATTO       NA          NA           9.30   july          NA
+64   BC2 silt    ATTO       NA          NA          17.40    oct          NA
+65   BC2 silt    SAVE       NA          NA          17.20   july          NA
+66   BC2 silt    SAVE       NA          NA          30.30    oct          NA
+67   BC2 silt    ATCO       NA          NA           5.60   july          NA
+68   BC2 silt    ATCO       NA          NA          10.50    oct          NA
+69   BC2 silt   OTHER        2 0.011976048             NA    oct          NA
+70   BC2 silt   OTHER        2 0.011976048             NA   july          NA
+71   BC3 silt    SPAI        1 0.005988024          16.48   july  0.09868263
+72   BC3 silt    SPAI        1 0.005988024          31.20    oct  0.18682635
+73   BC3 silt    DISP       17 0.101796407          20.00   july  2.03592814
+74   BC3 silt    DISP       17 0.101796407          37.60    oct  3.82754491
+75   BC3 silt    CHNA       24 0.143712575          18.60   july  2.67305389
+76   BC3 silt    CHNA       24 0.143712575          34.30    oct  4.92934132
+77   BC3 silt    ATTO       14 0.083832335           9.30   july  0.77964072
+78   BC3 silt    ATTO       14 0.083832335          17.40    oct  1.45868263
+79   BC3 silt    SAVE       NA          NA          17.20   july          NA
+80   BC3 silt    SAVE       NA          NA          30.30    oct          NA
+81   BC3 silt    ATCO       NA          NA           5.60   july          NA
+82   BC3 silt    ATCO       NA          NA          10.50    oct          NA
+83   BC3 silt   OTHER       20 0.119760479             NA    oct          NA
+84   BC3 silt   OTHER       20 0.119760479             NA   july          NA
+85   BP1 silt    SPAI       16 0.095808383          16.48   july  1.57892216
+86   BP1 silt    SPAI       16 0.095808383          31.20    oct  2.98922156
+87   BP1 silt    DISP       NA          NA          20.00   july          NA
+88   BP1 silt    DISP       NA          NA          37.60    oct          NA
+89   BP1 silt    CHNA       NA          NA          18.60   july          NA
+90   BP1 silt    CHNA       NA          NA          34.30    oct          NA
+91   BP1 silt    ATTO       14 0.083832335           9.30   july  0.77964072
+92   BP1 silt    ATTO       14 0.083832335          17.40    oct  1.45868263
+93   BP1 silt    SAVE       20 0.119760479          17.20   july  2.05988024
+94   BP1 silt    SAVE       20 0.119760479          30.30    oct  3.62874251
+95   BP1 silt    ATCO       NA          NA           5.60   july          NA
+96   BP1 silt    ATCO       NA          NA          10.50    oct          NA
+97   BP1 silt   OTHER       NA          NA             NA    oct          NA
+98   BP1 silt   OTHER       NA          NA             NA   july          NA
+99   BP2 sand    SPAI       NA          NA           9.59   july          NA
+100  BP2 sand    SPAI       NA          NA          17.60    oct          NA
+101  BP2 sand    DISP       NA          NA          10.49   july          NA
+102  BP2 sand    DISP       NA          NA          19.30    oct          NA
+103  BP2 sand    CHNA       17 0.101796407          18.60   july  1.89341317
+104  BP2 sand    CHNA       17 0.101796407          34.30    oct  3.49161677
+105  BP2 sand    ATTO       21 0.125748503           9.30   july  1.16946108
+106  BP2 sand    ATTO       21 0.125748503          17.40    oct  2.18802395
+107  BP2 sand    SAVE       NA          NA          17.20   july          NA
+108  BP2 sand    SAVE       NA          NA          30.30    oct          NA
+109  BP2 sand    ATCO       NA          NA           5.60   july          NA
+110  BP2 sand    ATCO       NA          NA          10.50    oct          NA
+111  BP2 sand   OTHER       NA          NA             NA    oct          NA
+112  BP2 sand   OTHER       NA          NA             NA   july          NA
+113  BP3 sand    SPAI        1 0.005988024           9.59   july  0.05742515
+114  BP3 sand    SPAI        1 0.005988024          17.60    oct  0.10538922
+115  BP3 sand    DISP       NA          NA          10.49   july          NA
+116  BP3 sand    DISP       NA          NA          19.30    oct          NA
+117  BP3 sand    CHNA        6 0.035928144          18.60   july  0.66826347
+118  BP3 sand    CHNA        6 0.035928144          34.30    oct  1.23233533
+119  BP3 sand    ATTO       NA          NA           9.30   july          NA
+120  BP3 sand    ATTO       NA          NA          17.40    oct          NA
+121  BP3 sand    SAVE       30 0.179640719          17.20   july  3.08982036
+122  BP3 sand    SAVE       30 0.179640719          30.30    oct  5.44311377
+123  BP3 sand    ATCO        1 0.005988024           5.60   july  0.03353293
+124  BP3 sand    ATCO        1 0.005988024          10.50    oct  0.06287425
+125  BP3 sand   OTHER       NA          NA             NA    oct          NA
+126  BP3 sand   OTHER       NA          NA             NA   july          NA
+127  BP4 sand    SPAI       NA          NA           9.59   july          NA
+128  BP4 sand    SPAI       NA          NA          17.60    oct          NA
+129  BP4 sand    DISP       NA          NA          10.49   july          NA
+130  BP4 sand    DISP       NA          NA          19.30    oct          NA
+131  BP4 sand    CHNA       NA          NA          18.60   july          NA
+132  BP4 sand    CHNA       NA          NA          34.30    oct          NA
+133  BP4 sand    ATTO       11 0.065868263           9.30   july  0.61257485
+134  BP4 sand    ATTO       11 0.065868263          17.40    oct  1.14610778
+135  BP4 sand    SAVE       29 0.173652695          17.20   july  2.98682635
+136  BP4 sand    SAVE       29 0.173652695          30.30    oct  5.26167665
+137  BP4 sand    ATCO       NA          NA           5.60   july          NA
+138  BP4 sand    ATCO       NA          NA          10.50    oct          NA
+139  BP4 sand   OTHER        1 0.005988024             NA    oct          NA
+140  BP4 sand   OTHER        1 0.005988024             NA   july          NA
+141  TA3 silt    SPAI       17 0.101796407          16.48   july  1.67760479
+142  TA3 silt    SPAI       17 0.101796407          31.20    oct  3.17604790
+143  TA3 silt    DISP       NA          NA          20.00   july          NA
+144  TA3 silt    DISP       NA          NA          37.60    oct          NA
+145  TA3 silt    CHNA       NA          NA          18.60   july          NA
+146  TA3 silt    CHNA       NA          NA          34.30    oct          NA
+147  TA3 silt    ATTO       11 0.065868263           9.30   july  0.61257485
+148  TA3 silt    ATTO       11 0.065868263          17.40    oct  1.14610778
+149  TA3 silt    SAVE        4 0.023952096          17.20   july  0.41197605
+150  TA3 silt    SAVE        4 0.023952096          30.30    oct  0.72574850
+151  TA3 silt    ATCO       NA          NA           5.60   july          NA
+152  TA3 silt    ATCO       NA          NA          10.50    oct          NA
+153  TA3 silt   OTHER       15 0.089820359             NA    oct          NA
+154  TA3 silt   OTHER       15 0.089820359             NA   july          NA
+155  TA4 silt    SPAI       14 0.083832335          16.48   july  1.38155689
+156  TA4 silt    SPAI       14 0.083832335          31.20    oct  2.61556886
+157  TA4 silt    DISP        3 0.017964072          20.00   july  0.35928144
+158  TA4 silt    DISP        3 0.017964072          37.60    oct  0.67544910
+159  TA4 silt    CHNA       10 0.059880240          18.60   july  1.11377246
+160  TA4 silt    CHNA       10 0.059880240          34.30    oct  2.05389222
+161  TA4 silt    ATTO       NA          NA           9.30   july          NA
+162  TA4 silt    ATTO       NA          NA          17.40    oct          NA
+163  TA4 silt    SAVE       NA          NA          17.20   july          NA
+164  TA4 silt    SAVE       NA          NA          30.30    oct          NA
+165  TA4 silt    ATCO       NA          NA           5.60   july          NA
+166  TA4 silt    ATCO       NA          NA          10.50    oct          NA
+167  TA4 silt   OTHER        2 0.011976048             NA    oct          NA
+168  TA4 silt   OTHER        2 0.011976048             NA   july          NA
+169  TA5 silt    SPAI        2 0.011976048          16.48   july  0.19736527
+170  TA5 silt    SPAI        2 0.011976048          31.20    oct  0.37365269
+171  TA5 silt    DISP       NA          NA          20.00   july          NA
+172  TA5 silt    DISP       NA          NA          37.60    oct          NA
+173  TA5 silt    CHNA       NA          NA          18.60   july          NA
+174  TA5 silt    CHNA       NA          NA          34.30    oct          NA
+175  TA5 silt    ATTO       NA          NA           9.30   july          NA
+176  TA5 silt    ATTO       NA          NA          17.40    oct          NA
+177  TA5 silt    SAVE        4 0.023952096          17.20   july  0.41197605
+178  TA5 silt    SAVE        4 0.023952096          30.30    oct  0.72574850
+179  TA5 silt    ATCO        2 0.011976048           5.60   july  0.06706587
+180  TA5 silt    ATCO        2 0.011976048          10.50    oct  0.12574850
+181  TA5 silt   OTHER        3 0.017964072             NA    oct          NA
+182  TA5 silt   OTHER        3 0.017964072             NA   july          NA
+183  TA6 silt    SPAI       15 0.089820359          16.48   july  1.48023952
+184  TA6 silt    SPAI       15 0.089820359          31.20    oct  2.80239521
+185  TA6 silt    DISP       NA          NA          20.00   july          NA
+186  TA6 silt    DISP       NA          NA          37.60    oct          NA
+187  TA6 silt    CHNA       11 0.065868263          18.60   july  1.22514970
+188  TA6 silt    CHNA       11 0.065868263          34.30    oct  2.25928144
+189  TA6 silt    ATTO       14 0.083832335           9.30   july  0.77964072
+190  TA6 silt    ATTO       14 0.083832335          17.40    oct  1.45868263
+191  TA6 silt    SAVE       NA          NA          17.20   july          NA
+192  TA6 silt    SAVE       NA          NA          30.30    oct          NA
+193  TA6 silt    ATCO       NA          NA           5.60   july          NA
+194  TA6 silt    ATCO       NA          NA          10.50    oct          NA
+195  TA6 silt   OTHER       NA          NA             NA    oct          NA
+196  TA6 silt   OTHER       NA          NA             NA   july          NA
+197  TAC silt    SPAI       19 0.113772455          16.48   july  1.87497006
+198  TAC silt    SPAI       19 0.113772455          31.20    oct  3.54970060
+199  TAC silt    DISP       31 0.185628743          20.00   july  3.71257485
+200  TAC silt    DISP       31 0.185628743          37.60    oct  6.97964072
+201  TAC silt    CHNA       NA          NA          18.60   july          NA
+202  TAC silt    CHNA       NA          NA          34.30    oct          NA
+203  TAC silt    ATTO       39 0.233532934           9.30   july  2.17185629
+204  TAC silt    ATTO       39 0.233532934          17.40    oct  4.06347305
+205  TAC silt    SAVE       NA          NA          17.20   july          NA
+206  TAC silt    SAVE       NA          NA          30.30    oct          NA
+207  TAC silt    ATCO       NA          NA           5.60   july          NA
+208  TAC silt    ATCO       NA          NA          10.50    oct          NA
+209  TAC silt   OTHER       32 0.191616766             NA    oct          NA
+210  TAC silt   OTHER       32 0.191616766             NA   july          NA
+211  TS1 sand    SPAI        4 0.023952096           9.59   july  0.22970060
+212  TS1 sand    SPAI        4 0.023952096          17.60    oct  0.42155689
+213  TS1 sand    DISP       NA          NA          10.49   july          NA
+214  TS1 sand    DISP       NA          NA          19.30    oct          NA
+215  TS1 sand    CHNA       NA          NA          18.60   july          NA
+216  TS1 sand    CHNA       NA          NA          34.30    oct          NA
+217  TS1 sand    ATTO       88 0.526946108           9.30   july  4.90059880
+218  TS1 sand    ATTO       88 0.526946108          17.40    oct  9.16886228
+219  TS1 sand    SAVE       NA          NA          17.20   july          NA
+220  TS1 sand    SAVE       NA          NA          30.30    oct          NA
+221  TS1 sand    ATCO       NA          NA           5.60   july          NA
+222  TS1 sand    ATCO       NA          NA          10.50    oct          NA
+223  TS1 sand   OTHER       NA          NA             NA    oct          NA
+224  TS1 sand   OTHER       NA          NA             NA   july          NA
+225  TS2 sand    SPAI       13 0.077844311           9.59   july  0.74652695
+226  TS2 sand    SPAI       13 0.077844311          17.60    oct  1.37005988
+227  TS2 sand    DISP        2 0.011976048          10.49   july  0.12562874
+228  TS2 sand    DISP        2 0.011976048          19.30    oct  0.23113772
+229  TS2 sand    CHNA       NA          NA          18.60   july          NA
+230  TS2 sand    CHNA       NA          NA          34.30    oct          NA
+231  TS2 sand    ATTO        2 0.011976048           9.30   july  0.11137725
+232  TS2 sand    ATTO        2 0.011976048          17.40    oct  0.20838323
+233  TS2 sand    SAVE       NA          NA          17.20   july          NA
+234  TS2 sand    SAVE       NA          NA          30.30    oct          NA
+235  TS2 sand    ATCO       NA          NA           5.60   july          NA
+236  TS2 sand    ATCO       NA          NA          10.50    oct          NA
+237  TS2 sand   OTHER       34 0.203592814             NA    oct          NA
+238  TS2 sand   OTHER       34 0.203592814             NA   july          NA
+239  TS3 sand    SPAI       19 0.113772455           9.59   july  1.09107784
+240  TS3 sand    SPAI       19 0.113772455          17.60    oct  2.00239521
+241  TS3 sand    DISP       32 0.191616766          10.49   july  2.01005988
+242  TS3 sand    DISP       32 0.191616766          19.30    oct  3.69820359
+243  TS3 sand    CHNA       NA          NA          18.60   july          NA
+244  TS3 sand    CHNA       NA          NA          34.30    oct          NA
+245  TS3 sand    ATTO        6 0.035928144           9.30   july  0.33413174
+246  TS3 sand    ATTO        6 0.035928144          17.40    oct  0.62514970
+247  TS3 sand    SAVE       NA          NA          17.20   july          NA
+248  TS3 sand    SAVE       NA          NA          30.30    oct          NA
+249  TS3 sand    ATCO       NA          NA           5.60   july          NA
+250  TS3 sand    ATCO       NA          NA          10.50    oct          NA
+251  TS3 sand   OTHER       NA          NA             NA    oct          NA
+252  TS3 sand   OTHER       NA          NA             NA   july          NA
+253  TS4 silt    SPAI       27 0.161676647          16.48   july  2.66443114
+254  TS4 silt    SPAI       27 0.161676647          31.20    oct  5.04431138
+255  TS4 silt    DISP       11 0.065868263          20.00   july  1.31736527
+256  TS4 silt    DISP       11 0.065868263          37.60    oct  2.47664671
+257  TS4 silt    CHNA        6 0.035928144          18.60   july  0.66826347
+258  TS4 silt    CHNA        6 0.035928144          34.30    oct  1.23233533
+259  TS4 silt    ATTO       16 0.095808383           9.30   july  0.89101796
+260  TS4 silt    ATTO       16 0.095808383          17.40    oct  1.66706587
+261  TS4 silt    SAVE       46 0.275449102          17.20   july  4.73772455
+262  TS4 silt    SAVE       46 0.275449102          30.30    oct  8.34610778
+263  TS4 silt    ATCO       NA          NA           5.60   july          NA
+264  TS4 silt    ATCO       NA          NA          10.50    oct          NA
+265  TS4 silt   OTHER        7 0.041916168             NA    oct          NA
+266  TS4 silt   OTHER        7 0.041916168             NA   july          NA
+267  TSC silt    SPAI       17 0.101796407          16.48   july  1.67760479
+268  TSC silt    SPAI       17 0.101796407          31.20    oct  3.17604790
+269  TSC silt    DISP       NA          NA          20.00   july          NA
+270  TSC silt    DISP       NA          NA          37.60    oct          NA
+271  TSC silt    CHNA        1 0.005988024          18.60   july  0.11137725
+272  TSC silt    CHNA        1 0.005988024          34.30    oct  0.20538922
+273  TSC silt    ATTO       NA          NA           9.30   july          NA
+274  TSC silt    ATTO       NA          NA          17.40    oct          NA
+275  TSC silt    SAVE        4 0.023952096          17.20   july  0.41197605
+276  TSC silt    SAVE        4 0.023952096          30.30    oct  0.72574850
+277  TSC silt    ATCO        3 0.017964072           5.60   july  0.10059880
+278  TSC silt    ATCO        3 0.017964072          10.50    oct  0.18862275
+279  TSC silt   OTHER        9 0.053892216             NA    oct          NA
+280  TSC silt   OTHER        9 0.053892216             NA   july          NA
+281  IO1 silt    SPAI       28 0.167664671          16.48   july  2.76311377
+282  IO1 silt    SPAI       28 0.167664671          31.20    oct  5.23113772
+283  IO1 silt    DISP       NA          NA          20.00   july          NA
+284  IO1 silt    DISP       NA          NA          37.60    oct          NA
+285  IO1 silt    CHNA       20 0.119760479          18.60   july  2.22754491
+286  IO1 silt    CHNA       20 0.119760479          34.30    oct  4.10778443
+287  IO1 silt    ATTO        5 0.029940120           9.30   july  0.27844311
+288  IO1 silt    ATTO        5 0.029940120          17.40    oct  0.52095808
+289  IO1 silt    SAVE       NA          NA          17.20   july          NA
+290  IO1 silt    SAVE       NA          NA          30.30    oct          NA
+291  IO1 silt    ATCO       NA          NA           5.60   july          NA
+292  IO1 silt    ATCO       NA          NA          10.50    oct          NA
+293  IO1 silt   OTHER       32 0.191616766             NA    oct          NA
+294  IO1 silt   OTHER       32 0.191616766             NA   july          NA
+295  IO2 silt    SPAI       NA          NA          16.48   july          NA
+296  IO2 silt    SPAI       NA          NA          31.20    oct          NA
+297  IO2 silt    DISP       NA          NA          20.00   july          NA
+298  IO2 silt    DISP       NA          NA          37.60    oct          NA
+299  IO2 silt    CHNA       NA          NA          18.60   july          NA
+300  IO2 silt    CHNA       NA          NA          34.30    oct          NA
+301  IO2 silt    ATTO       10 0.059880240           9.30   july  0.55688623
+302  IO2 silt    ATTO       10 0.059880240          17.40    oct  1.04191617
+303  IO2 silt    SAVE       NA          NA          17.20   july          NA
+304  IO2 silt    SAVE       NA          NA          30.30    oct          NA
+305  IO2 silt    ATCO       NA          NA           5.60   july          NA
+306  IO2 silt    ATCO       NA          NA          10.50    oct          NA
+307  IO2 silt   OTHER       NA          NA             NA    oct          NA
+308  IO2 silt   OTHER       NA          NA             NA   july          NA
+309  IC1 silt    SPAI       NA          NA          16.48   july          NA
+310  IC1 silt    SPAI       NA          NA          31.20    oct          NA
+311  IC1 silt    DISP       NA          NA          20.00   july          NA
+312  IC1 silt    DISP       NA          NA          37.60    oct          NA
+313  IC1 silt    CHNA       19 0.113772455          18.60   july  2.11616766
+314  IC1 silt    CHNA       19 0.113772455          34.30    oct  3.90239521
+315  IC1 silt    ATTO       17 0.101796407           9.30   july  0.94670659
+316  IC1 silt    ATTO       17 0.101796407          17.40    oct  1.77125749
+317  IC1 silt    SAVE       NA          NA          17.20   july          NA
+318  IC1 silt    SAVE       NA          NA          30.30    oct          NA
+319  IC1 silt    ATCO       NA          NA           5.60   july          NA
+320  IC1 silt    ATCO       NA          NA          10.50    oct          NA
+321  IC1 silt   OTHER       15 0.089820359             NA    oct          NA
+322  IC1 silt   OTHER       15 0.089820359             NA   july          NA
+323  IC2 silt    SPAI        4 0.023952096          16.48   july  0.39473054
+324  IC2 silt    SPAI        4 0.023952096          31.20    oct  0.74730539
+325  IC2 silt    DISP       NA          NA          20.00   july          NA
+326  IC2 silt    DISP       NA          NA          37.60    oct          NA
+327  IC2 silt    CHNA        5 0.029940120          18.60   july  0.55688623
+328  IC2 silt    CHNA        5 0.029940120          34.30    oct  1.02694611
+329  IC2 silt    ATTO       NA          NA           9.30   july          NA
+330  IC2 silt    ATTO       NA          NA          17.40    oct          NA
+331  IC2 silt    SAVE       NA          NA          17.20   july          NA
+332  IC2 silt    SAVE       NA          NA          30.30    oct          NA
+333  IC2 silt    ATCO       NA          NA           5.60   july          NA
+334  IC2 silt    ATCO       NA          NA          10.50    oct          NA
+335  IC2 silt   OTHER        2 0.011976048             NA    oct          NA
+336  IC2 silt   OTHER        2 0.011976048             NA   july          NA
+337  SS1 silt    SPAI       NA          NA          16.48   july          NA
+338  SS1 silt    SPAI       NA          NA          31.20    oct          NA
+339  SS1 silt    DISP       NA          NA          20.00   july          NA
+340  SS1 silt    DISP       NA          NA          37.60    oct          NA
+341  SS1 silt    CHNA       NA          NA          18.60   july          NA
+342  SS1 silt    CHNA       NA          NA          34.30    oct          NA
+343  SS1 silt    ATTO       21 0.125748503           9.30   july  1.16946108
+344  SS1 silt    ATTO       21 0.125748503          17.40    oct  2.18802395
+345  SS1 silt    SAVE       11 0.065868263          17.20   july  1.13293413
+346  SS1 silt    SAVE       11 0.065868263          30.30    oct  1.99580838
+347  SS1 silt    ATCO       NA          NA           5.60   july          NA
+348  SS1 silt    ATCO       NA          NA          10.50    oct          NA
+349  SS1 silt   OTHER        1 0.005988024             NA    oct          NA
+350  SS1 silt   OTHER        1 0.005988024             NA   july          NA
+351  SS2 silt    SPAI       NA          NA          16.48   july          NA
+352  SS2 silt    SPAI       NA          NA          31.20    oct          NA
+353  SS2 silt    DISP       NA          NA          20.00   july          NA
+354  SS2 silt    DISP       NA          NA          37.60    oct          NA
+355  SS2 silt    CHNA       NA          NA          18.60   july          NA
+356  SS2 silt    CHNA       NA          NA          34.30    oct          NA
+357  SS2 silt    ATTO        5 0.029940120           9.30   july  0.27844311
+358  SS2 silt    ATTO        5 0.029940120          17.40    oct  0.52095808
+359  SS2 silt    SAVE       NA          NA          17.20   july          NA
+360  SS2 silt    SAVE       NA          NA          30.30    oct          NA
+361  SS2 silt    ATCO       NA          NA           5.60   july          NA
+362  SS2 silt    ATCO       NA          NA          10.50    oct          NA
+363  SS2 silt   OTHER        1 0.005988024             NA    oct          NA
+364  SS2 silt   OTHER        1 0.005988024             NA   july          NA
+365  SS3 silt    SPAI       NA          NA          16.48   july          NA
+366  SS3 silt    SPAI       NA          NA          31.20    oct          NA
+367  SS3 silt    DISP       NA          NA          20.00   july          NA
+368  SS3 silt    DISP       NA          NA          37.60    oct          NA
+369  SS3 silt    CHNA       NA          NA          18.60   july          NA
+370  SS3 silt    CHNA       NA          NA          34.30    oct          NA
+371  SS3 silt    ATTO       49 0.293413174           9.30   july  2.72874251
+372  SS3 silt    ATTO       49 0.293413174          17.40    oct  5.10538922
+373  SS3 silt    SAVE       NA          NA          17.20   july          NA
+374  SS3 silt    SAVE       NA          NA          30.30    oct          NA
+375  SS3 silt    ATCO       NA          NA           5.60   july          NA
+376  SS3 silt    ATCO       NA          NA          10.50    oct          NA
+377  SS3 silt   OTHER        1 0.005988024             NA    oct          NA
+378  SS3 silt   OTHER        1 0.005988024             NA   july          NA
+379  SS4 silt    SPAI       NA          NA          16.48   july          NA
+380  SS4 silt    SPAI       NA          NA          31.20    oct          NA
+381  SS4 silt    DISP       NA          NA          20.00   july          NA
+382  SS4 silt    DISP       NA          NA          37.60    oct          NA
+383  SS4 silt    CHNA       NA          NA          18.60   july          NA
+384  SS4 silt    CHNA       NA          NA          34.30    oct          NA
+385  SS4 silt    ATTO       23 0.137724551           9.30   july  1.28083832
+386  SS4 silt    ATTO       23 0.137724551          17.40    oct  2.39640719
+387  SS4 silt    SAVE       NA          NA          17.20   july          NA
+388  SS4 silt    SAVE       NA          NA          30.30    oct          NA
+389  SS4 silt    ATCO       NA          NA           5.60   july          NA
+390  SS4 silt    ATCO       NA          NA          10.50    oct          NA
+391  SS4 silt   OTHER       NA          NA             NA    oct          NA
+392  SS4 silt   OTHER       NA          NA             NA   july          NA
+393  BG2 silt    SPAI       NA          NA          16.48   july          NA
+394  BG2 silt    SPAI       NA          NA          31.20    oct          NA
+395  BG2 silt    DISP       NA          NA          20.00   july          NA
+396  BG2 silt    DISP       NA          NA          37.60    oct          NA
+397  BG2 silt    CHNA       NA          NA          18.60   july          NA
+398  BG2 silt    CHNA       NA          NA          34.30    oct          NA
+399  BG2 silt    ATTO        6 0.035928144           9.30   july  0.33413174
+400  BG2 silt    ATTO        6 0.035928144          17.40    oct  0.62514970
+401  BG2 silt    SAVE        1 0.005988024          17.20   july  0.10299401
+402  BG2 silt    SAVE        1 0.005988024          30.30    oct  0.18143713
+403  BG2 silt    ATCO       NA          NA           5.60   july          NA
+404  BG2 silt    ATCO       NA          NA          10.50    oct          NA
+405  BG2 silt   OTHER        5 0.029940120             NA    oct          NA
+406  BG2 silt   OTHER        5 0.029940120             NA   july          NA
+407  BGC silt    SPAI        1 0.005988024          16.48   july  0.09868263
+408  BGC silt    SPAI        1 0.005988024          31.20    oct  0.18682635
+409  BGC silt    DISP        4 0.023952096          20.00   july  0.47904192
+410  BGC silt    DISP        4 0.023952096          37.60    oct  0.90059880
+411  BGC silt    CHNA       22 0.131736527          18.60   july  2.45029940
+412  BGC silt    CHNA       22 0.131736527          34.30    oct  4.51856287
+413  BGC silt    ATTO       16 0.095808383           9.30   july  0.89101796
+414  BGC silt    ATTO       16 0.095808383          17.40    oct  1.66706587
+415  BGC silt    SAVE       NA          NA          17.20   july          NA
+416  BGC silt    SAVE       NA          NA          30.30    oct          NA
+417  BGC silt    ATCO       NA          NA           5.60   july          NA
+418  BGC silt    ATCO       NA          NA          10.50    oct          NA
+419  BGC silt   OTHER       NA          NA             NA    oct          NA
+420  BGC silt   OTHER       NA          NA             NA   july          NA</code></pre>
+<pre class="r"><code># datatable(vwr)
+# 420 rows
+
+# 30 sites, 2 periods, 7 species including other
+# rows &lt;- 30*2*7</code></pre>
+</div>
+<div id="weighted-average-vwrlai" class="section level2">
+<h2>Weighted average VWR/LAI</h2>
+<p>The sum of vwr for six species divided by sum of lai for six co-ocurring species provides estimates for VWRmax for the <code>OTHER</code> category.</p>
+<p>This value is multiplied by the LAI of the <code>OTHER</code> column to obtain VWR for <code>OTHER</code>.</p>
+<pre class="r"><code>weighted.avg.</code></pre>
+<pre><code># A tibble: 60 x 4
+# Groups:   site [30]
+   site  period w_avg_vwr_per_lai species
+   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;  
+ 1 BC1   july                15.5 OTHER  
+ 2 BC1   oct                 28.3 OTHER  
+ 3 BC2   july                18.9 OTHER  
+ 4 BC2   oct                 35.0 OTHER  
+ 5 BC3   july                16.7 OTHER  
+ 6 BC3   oct                 31.0 OTHER  
+ 7 BG2   july                10.4 OTHER  
+ 8 BG2   oct                 19.2 OTHER  
+ 9 BGC   july                15.2 OTHER  
+10 BGC   oct                 28.2 OTHER  
+# ... with 50 more rows</code></pre>
+<pre class="r"><code># weighted.avg. &lt;- vwr %&gt;% filter(species != &#39;OTHER&#39;,all.hits &gt;0) %&gt;%  group_by(site,period) %&gt;% summarise(w_avg_vwr_per_lai = sum(vwr)/sum(lai)) %&gt;% mutate(species = &#39;OTHER&#39;)
+# datatable(weighted.avg.)</code></pre>
+</div>
+<div id="species-level-vwr" class="section level2">
+<h2>Species level VWR</h2>
+<pre class="r"><code># join weighted avg VWR/LAI to vwr by site, species, period, and combined 
+
+vwr.total %&gt;% filter(all.hits &gt; 0) %&gt;% select(site,period,species,lai,total.vwr) %&gt;%  datatable() %&gt;% formatRound(c(&#39;lai&#39;,&#39;total.vwr&#39;),2)</code></pre>
+<div id="htmlwidget-50685a3026d12c1328cd" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-50685a3026d12c1328cd">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198"],["LW1","LW1","LW2","LW2","LW2","LW2","LW2","LW2","LW2","LW2","LW3","LW3","LW3","LW3","LW3","LW3","LW3","LW3","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC2","BC2","BC2","BC2","BC2","BC2","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BP1","BP1","BP1","BP1","BP1","BP1","BP2","BP2","BP2","BP2","BP3","BP3","BP3","BP3","BP3","BP3","BP3","BP3","BP4","BP4","BP4","BP4","BP4","BP4","TA3","TA3","TA3","TA3","TA3","TA3","TA3","TA3","TA4","TA4","TA4","TA4","TA4","TA4","TA4","TA4","TA5","TA5","TA5","TA5","TA5","TA5","TA5","TA5","TA6","TA6","TA6","TA6","TA6","TA6","TAC","TAC","TAC","TAC","TAC","TAC","TAC","TAC","TS1","TS1","TS1","TS1","TS2","TS2","TS2","TS2","TS2","TS2","TS2","TS2","TS3","TS3","TS3","TS3","TS3","TS3","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TSC","TSC","TSC","TSC","TSC","TSC","TSC","TSC","TSC","TSC","IO1","IO1","IO1","IO1","IO1","IO1","IO1","IO1","IO2","IO2","IC1","IC1","IC1","IC1","IC1","IC1","IC2","IC2","IC2","IC2","IC2","IC2","SS1","SS1","SS1","SS1","SS1","SS1","SS2","SS2","SS2","SS2","SS3","SS3","SS3","SS3","SS4","SS4","BG2","BG2","BG2","BG2","BG2","BG2","BGC","BGC","BGC","BGC","BGC","BGC","BGC","BGC"],["july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","oct","july","july","oct","july","oct","oct","july","july","oct","oct","july","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct"],["SAVE","SAVE","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","SAVE","SAVE","SPAI","SPAI","DISP","DISP","ATTO","ATTO","SAVE","SAVE","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","DISP","DISP","CHNA","CHNA","OTHER","OTHER","SPAI","SPAI","DISP","DISP","CHNA","CHNA","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","ATTO","ATTO","SAVE","SAVE","CHNA","CHNA","ATTO","ATTO","SPAI","SPAI","CHNA","CHNA","SAVE","SAVE","ATCO","ATCO","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","DISP","DISP","CHNA","CHNA","OTHER","OTHER","SPAI","SPAI","SAVE","SAVE","ATCO","ATCO","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","SPAI","SPAI","DISP","DISP","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","ATTO","ATTO","SPAI","SPAI","DISP","DISP","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","DISP","DISP","ATTO","ATTO","SPAI","SPAI","DISP","DISP","CHNA","CHNA","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","SAVE","SAVE","ATCO","ATCO","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","OTHER","OTHER","ATTO","ATTO","CHNA","CHNA","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","OTHER","OTHER","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","ATTO","ATTO","OTHER","OTHER","ATTO","ATTO","OTHER","OTHER","ATTO","ATTO","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","DISP","DISP","CHNA","CHNA","ATTO","ATTO"],[0.269461077844311,0.269461077844311,0.0718562874251497,0.0718562874251497,0.029940119760479,0.029940119760479,0.0119760479041916,0.0119760479041916,0.0838323353293413,0.0838323353293413,0.586826347305389,0.586826347305389,0.029940119760479,0.029940119760479,0.0479041916167665,0.0479041916167665,0.00598802395209581,0.00598802395209581,0.029940119760479,0.029940119760479,0.161676646706587,0.161676646706587,0.0718562874251497,0.0718562874251497,0.0718562874251497,0.0718562874251497,0.107784431137725,0.107784431137725,0.0479041916167665,0.0479041916167665,0.167664670658683,0.167664670658683,0.0119760479041916,0.0119760479041916,0.00598802395209581,0.00598802395209581,0.101796407185629,0.101796407185629,0.143712574850299,0.143712574850299,0.0838323353293413,0.0838323353293413,0.119760479041916,0.119760479041916,0.0958083832335329,0.0958083832335329,0.0838323353293413,0.0838323353293413,0.119760479041916,0.119760479041916,0.101796407185629,0.101796407185629,0.125748502994012,0.125748502994012,0.00598802395209581,0.00598802395209581,0.0359281437125748,0.0359281437125748,0.179640718562874,0.179640718562874,0.00598802395209581,0.00598802395209581,0.0658682634730539,0.0658682634730539,0.173652694610778,0.173652694610778,0.00598802395209581,0.00598802395209581,0.101796407185629,0.101796407185629,0.0658682634730539,0.0658682634730539,0.0239520958083832,0.0239520958083832,0.0898203592814371,0.0898203592814371,0.0838323353293413,0.0838323353293413,0.0179640718562874,0.0179640718562874,0.0598802395209581,0.0598802395209581,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.0239520958083832,0.0239520958083832,0.0119760479041916,0.0119760479041916,0.0179640718562874,0.0179640718562874,0.0898203592814371,0.0898203592814371,0.0658682634730539,0.0658682634730539,0.0838323353293413,0.0838323353293413,0.11377245508982,0.11377245508982,0.18562874251497,0.18562874251497,0.233532934131737,0.233532934131737,0.191616766467066,0.191616766467066,0.0239520958083832,0.0239520958083832,0.526946107784431,0.526946107784431,0.0778443113772455,0.0778443113772455,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.203592814371257,0.203592814371257,0.11377245508982,0.11377245508982,0.191616766467066,0.191616766467066,0.0359281437125748,0.0359281437125748,0.161676646706587,0.161676646706587,0.0658682634730539,0.0658682634730539,0.0359281437125748,0.0359281437125748,0.0958083832335329,0.0958083832335329,0.275449101796407,0.275449101796407,0.0419161676646707,0.0419161676646707,0.101796407185629,0.101796407185629,0.00598802395209581,0.00598802395209581,0.0239520958083832,0.0239520958083832,0.0179640718562874,0.0179640718562874,0.0538922155688623,0.0538922155688623,0.167664670658683,0.167664670658683,0.119760479041916,0.119760479041916,0.029940119760479,0.029940119760479,0.191616766467066,0.191616766467066,0.0598802395209581,0.0598802395209581,0.11377245508982,0.11377245508982,0.101796407185629,0.101796407185629,0.0898203592814371,0.0898203592814371,0.0239520958083832,0.0239520958083832,0.029940119760479,0.029940119760479,0.0119760479041916,0.0119760479041916,0.125748502994012,0.125748502994012,0.0658682634730539,0.0658682634730539,0.00598802395209581,0.00598802395209581,0.029940119760479,0.029940119760479,0.00598802395209581,0.00598802395209581,0.293413173652695,0.293413173652695,0.00598802395209581,0.00598802395209581,0.137724550898204,0.137724550898204,0.0359281437125748,0.0359281437125748,0.00598802395209581,0.00598802395209581,0.029940119760479,0.029940119760479,0.00598802395209581,0.00598802395209581,0.0239520958083832,0.0239520958083832,0.131736526946108,0.131736526946108,0.0958083832335329,0.0958083832335329],[4.63473053892216,8.16467065868263,0.689101796407186,1.26467065868263,0.55688622754491,1.02694610778443,0.111377245508982,0.208383233532934,1.44191616766467,2.54011976047904,5.62766467065868,10.3281437125748,0.314071856287425,0.577844311377246,0.445508982035928,0.833532934131736,0.102994011976048,0.181437125748503,0.287125748502994,0.526946107784431,3.00718562874252,5.54550898203593,0.668263473053892,1.2502994011976,1.23592814371257,2.17724550898204,3.05357142857143,1.67094739093242,0.958083832335329,1.80119760479042,3.1185628742515,5.75089820359281,0.419560878243513,0.226480372588157,0.0986826347305389,0.186826347305389,2.03592814371257,3.82754491017964,2.67305389221557,4.92934131736527,0.779640718562874,1.45868263473054,3.71514114627887,1.99546621043627,1.57892215568862,2.98922155688623,0.779640718562874,1.45868263473054,2.05988023952096,3.62874251497006,1.89341317365269,3.49161676646707,1.16946107784431,2.18802395209581,0.0574251497005988,0.105389221556886,0.668263473053892,1.23233532934132,3.08982035928144,5.44311377245509,0.0335329341317365,0.062874251497006,0.612574850299401,1.14610778443114,2.98682634730539,5.26167664670659,0.160194610778443,0.0899850299401198,1.67760479041916,3.17604790419162,0.612574850299401,1.14610778443114,0.411976047904192,0.725748502994012,2.36620508982036,1.26663547904192,1.38155688622754,2.61556886227545,0.359281437125749,0.675449101796407,1.11377245508982,2.05389221556886,0.395919272565979,0.211452650255045,0.197365269461078,0.373652694610778,0.411976047904192,0.725748502994012,0.067065868263473,0.125748502994012,0.459431137724551,0.253652694610778,1.48023952095808,2.80239520958084,1.2251497005988,2.25928143712575,0.779640718562874,1.45868263473054,1.87497005988024,3.54970059880239,3.7125748502994,6.97964071856287,2.17185628742515,4.06347305389222,5.24685460539595,2.78989705981296,0.229700598802395,0.421556886227545,4.90059880239521,9.1688622754491,0.746526946107784,1.37005988023952,0.12562874251497,0.231137724550898,0.111377245508982,0.208383233532934,3.61916167664671,1.96706586826347,1.09107784431138,2.00239520958084,2.01005988023952,3.69820359281437,0.334131736526946,0.625149700598802,2.66443113772455,5.04431137724551,1.31736526946108,2.47664670658683,0.668263473053892,1.23233532934132,0.891017964071856,1.66706586826347,4.7377245508982,8.34610778443114,1.23929499491583,0.678788837419501,1.67760479041916,3.17604790419162,0.111377245508982,0.205389221556886,0.411976047904192,0.725748502994012,0.10059880239521,0.188622754491018,1.54649101796407,0.828560479041916,2.76311377245509,5.2311377245509,2.22754491017964,4.10778443113772,0.278443113772455,0.520958083832335,5.95313523895605,3.18134448084962,0.55688622754491,1.04191616766467,2.11616766467066,3.90239520958084,0.946706586826347,1.77125748502994,2.36402195608782,1.27619760479042,0.394730538922156,0.747305389221557,0.55688622754491,1.02694610778443,0.394278110445775,0.211470392548237,1.16946107784431,2.18802395209581,1.13293413173653,1.99580838323353,0.130744760479042,0.0719498502994012,0.278443113772455,0.520958083832335,0.104191616766467,0.055688622754491,2.72874251497006,5.10538922155689,0.104191616766467,0.055688622754491,1.28083832335329,2.39640718562874,0.334131736526946,0.625149700598802,0.102994011976048,0.181437125748503,0.576133447390932,0.312232677502139,0.0986826347305389,0.186826347305389,0.479041916167665,0.90059880239521,2.45029940119761,4.5185628742515,0.891017964071856,1.66706586826347]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>site<\/th>\n      <th>period<\/th>\n      <th>species<\/th>\n      <th>lai<\/th>\n      <th>total.vwr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"targets":5,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-right","targets":[4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+</div>
+<div id="site-level-vwr" class="section level2">
+<h2>Site-level VWR</h2>
+<pre class="r"><code># vwr.total &lt;- vwr.total %&gt;% mutate(site.f = factor(site, levels = ns_order))
+
+
+
+vwr.wide.period %&gt;% datatable(caption = paste(&#39;Vegetation water requirements July 1 and Oct 1&#39;,cYear,&#39; calculated according to Greenbook section III.A.1.&#39;)) %&gt;% formatRound(c(&#39;july&#39;,&#39;oct&#39;),2) </code></pre>
+<div id="htmlwidget-733d98179d6985ff73d8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-733d98179d6985ff73d8">{"x":{"filter":"none","caption":"<caption>Vegetation water requirements July 1 and Oct 1 2020  calculated according to Greenbook section III.A.1.<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"],["LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC"],[4.63473053892216,2.79928143712575,6.49023952095808,6.8694503849444,4.30312707917498,7.58277159965783,4.41844311377246,3.06287425149701,3.84904191616766,3.68938622754491,3.96879116766467,3.06606342869816,0.930059880239521,3.48502994011976,10.5492982574177,5.13029940119761,2.95059880239521,3.43526946107784,10.9575912326291,3.13011736526946,8.45044627725681,0.55688622754491,4.33907185628743,1.1630871590153,2.37434505988024,0.334131736526946,2.78443113772455,1.28083832335329,0.749358426005133,3.91904191616767],[8.16467065868263,5.04011976047904,11.9209580838323,12.5535714285714,7.97165668662675,14.1175363558597,8.07664670658683,5.67964071856287,6.8437125748503,6.56797904191617,7.41410928143713,5.7408294522067,1.68458083832335,6.52035928143713,19.8396689766534,9.59041916167665,5.42874251497006,6.32574850299401,20.0057620607841,5.84229940119761,15.813015478477,1.04191616766467,8.0376746506986,2.16852960745176,4.31457709580838,0.625149700598802,5.20958083832335,2.39640718562874,1.38272027373824,7.27305389221557]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>site.f<\/th>\n      <th>july<\/th>\n      <th>oct<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"targets":3,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+<pre class="r"><code># %&gt;% htmlwidgets::saveWidget(paste0(cYear,&#39;_jul_oct_vwr.html&#39;))</code></pre>
+</div>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
+<div id="targets" class="section level2">
+<h2>Targets</h2>
+<pre class="r"><code>library(targets)
+library(tidyverse)
+library(tarchetypes)
+library(DT)
+
+source(&quot;analysis/functions.R&quot;)
+tar_option_set(
+  packages = c(
+    &quot;tidyverse&quot;,
+    &quot;stringr&quot;
+  )
+
+)
+list(
+  tar_target(cYear, 2020),
+  tar_target(pointframe_file, &quot;data/point_frame.csv&quot;, format = &quot;file&quot;),
+  tar_target(pointframe_wide, read.csv(pointframe_file)),
+  tar_target(pointframe_long, pivot_longer_pointframe(pointframe_wide)),
+  tar_target(pointframe_lai, lai(pointframe_long)),
+  tar_target(vwrmax_file, &quot;data/vwr_max_lookup.csv&quot;, format = &quot;file&quot;),
+  tar_target(vwrmax_lookt, read.csv(vwrmax_file)),
+  tar_target(sitesoil_file, &quot;data/vwr_site_soil_designation.csv&quot;, format = &quot;file&quot;),
+  tar_target(sitesoil, read.csv(sitesoil_file)),
+  tar_target(lai_ss, left_join(sitesoil,pointframe_lai, by = &quot;site&quot;)),
+  tar_target(lai_ss_vwrmax,left_join(lai_ss,vwrmax_lookt, by = c(&#39;soil&#39;,&#39;species&#39;))),
+  tar_target(vwr, mutate(lai_ss_vwrmax,vwr = lai*vwr_at_lai_max)),
+  tar_target(weighted.avg., weighted_avg(vwr)),
+  tar_target(vwr.total,vwr_total(vwr,weighted.avg.)),
+  tar_target(vwr.wide.period, vwr_site_total_period(vwr.total, cYear))
+  )</code></pre>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<pre class="r"><code>pivot_longer_pointframe &lt;- function(pointframe_wide){
+  pointframe_wide %&gt;%
+    gather(species, all.hits, SPAI:OTHER)
+}
+
+lai &lt;- function(pointframe_long){
+  pointframe_long %&gt;% mutate(lai = all.hits/334 * 2) %&gt;%
+                             rename(site = SITE)
+
+}
+
+weighted_avg &lt;- function(vwr){
+  vwr %&gt;% filter(species != &#39;OTHER&#39;) %&gt;% filter(all.hits &gt;0) %&gt;%
+    group_by(site,period) %&gt;%
+    summarise(w_avg_vwr_per_lai = sum(vwr)/sum(lai)) %&gt;%
+    mutate(species = &#39;OTHER&#39;)
+}
+
+vwr_total &lt;- function(vwr, weighted.avg.){
+  vwr %&gt;% left_join(weighted.avg., by = c(&#39;site&#39;, &#39;species&#39;, &#39;period&#39;)) %&gt;%
+    mutate(other.vwr = w_avg_vwr_per_lai * lai,
+           total.vwr = case_when(!is.na(vwr)~vwr,
+                                 !is.na(other.vwr)~other.vwr),
+           site.f = factor(site, levels = c(&quot;LW1&quot;,&quot;LW2&quot;,                                                                                                                  &quot;LW3&quot;,
+                                                  &quot;BC1&quot;,
+                                                  &quot;BC2&quot;,
+                                                  &quot;BC3&quot;,
+                                                  &quot;BP1&quot;,
+                                                  &quot;BP2&quot;,
+                                                  &quot;BP3&quot;,
+                                                  &quot;BP4&quot;,
+                                                  &quot;TA3&quot;,
+                                                  &quot;TA4&quot;,
+                                                  &quot;TA5&quot;,
+                                                  &quot;TA6&quot;,
+                                                  &quot;TAC&quot;,
+                                                  &quot;TS1&quot;,
+                                                  &quot;TS2&quot;,
+                                                  &quot;TS3&quot;,
+                                                  &quot;TS4&quot;,
+                                                  &quot;TSC&quot;,
+                                                  &quot;IO1&quot;,
+                                                  &quot;IO2&quot;,
+                                                  &quot;IC1&quot;,
+                                                  &quot;IC2&quot;,
+                                                  &quot;SS1&quot;,
+                                                  &quot;SS2&quot;,
+                                                  &quot;SS3&quot;,
+                                                  &quot;SS4&quot;,
+                                                  &quot;BG2&quot;,
+                                                  &quot;BGC&quot;)
+                           )
+  )
+}
+
+vwr_sum_table_fun &lt;- function(vwr.total,cYear){
+  vwr.total %&gt;% filter(all.hits &gt; 0) %&gt;%
+    select(site.f,period,species,lai,total.vwr) %&gt;%
+    group_by(site.f,period) %&gt;%
+    summarise(site.vwr = sum(total.vwr)) %&gt;%
+    pivot_wider(names_from = period, values_from = site.vwr) %&gt;%
+    datatable(caption = paste(&#39;Vegetation water requirements July 1 and Oct 1&#39;,cYear,&#39; calculated according to Greenbook section III.A.1.&#39;)) %&gt;%
+    formatRound(c(&#39;july&#39;,&#39;oct&#39;),2)
+}
+
+vwr_site_total_period &lt;- function(vwr.total,cYear){
+  vwr.total %&gt;% filter(all.hits &gt; 0) %&gt;%
+  select(site.f,period,species,lai,total.vwr) %&gt;%
+  group_by(site.f,period) %&gt;%
+  summarise(site.vwr = sum(total.vwr)) %&gt;%
+  pivot_wider(names_from = period, values_from = site.vwr)
+}</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 14393)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] htmlwidgets_1.5.2 DT_0.15           rmarkdown_2.6     forcats_0.5.0    
+ [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_1.4.0      
+ [9] tidyr_1.1.3       tibble_3.1.2      ggplot2_3.3.5     tidyverse_1.3.0  
+[13] targets_0.4.2     workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.6        lubridate_1.7.9   ps_1.6.0          assertthat_0.2.1 
+ [5] rprojroot_2.0.2   digest_0.6.27     utf8_1.2.1        R6_2.5.0         
+ [9] cellranger_1.1.0  backports_1.1.9   reprex_0.3.0      evaluate_0.14    
+[13] httr_1.4.2        pillar_1.6.1      rlang_0.4.11      readxl_1.3.1     
+[17] rstudioapi_0.13   data.table_1.14.0 whisker_0.4       callr_3.7.0      
+[21] blob_1.2.1        igraph_1.2.6      munsell_0.5.0     broom_0.7.0      
+[25] compiler_4.0.2    httpuv_1.5.4      modelr_0.1.8      xfun_0.21        
+[29] pkgconfig_2.0.3   htmltools_0.5.1.1 tidyselect_1.1.1  codetools_0.2-16 
+[33] fansi_0.5.0       crayon_1.4.1      dbplyr_1.4.4      withr_2.4.2      
+[37] later_1.1.0.1     grid_4.0.2        jsonlite_1.7.2    gtable_0.3.0     
+[41] lifecycle_1.0.0   DBI_1.1.0         git2r_0.27.1      magrittr_2.0.1   
+[45] scales_1.1.1      cli_3.0.0         stringi_1.5.3     fs_1.5.0         
+[49] promises_1.1.1    xml2_1.3.2        ellipsis_0.3.2    generics_0.1.0   
+[53] vctrs_0.3.8       tools_4.0.2       glue_1.4.2        crosstalk_1.1.0.1
+[57] hms_0.5.3         processx_3.5.2    yaml_2.2.1        colorspace_2.0-0 
+[61] rvest_0.3.6       knitr_1.31        haven_2.3.1      </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
