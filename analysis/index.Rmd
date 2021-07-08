@@ -7,10 +7,12 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-Vegetation Water Requirement (VWR) Calculations [link](https://github.com/zach-nelson/veg-water-requirement/blob/6190f27b41aa0bb736db22f2363b21d7c2e29bbe/docs/point_frame.html).
-
+Vegetation Water Requirement (VWR) Calculations [link](https://zach-nelson.github.io/veg-water-requirement/point_frame_vwr.html).
 
 Archived for reproducibility -  vegetation water requirements (VWR) computed from sampled leaf area at 30 sites - 22 of which control the Green Book on/off pumping management under the Agreement. This format provides the functions, code and version history of the annual VWR calculations necessitated by the Agreement.
 
+>The `workflowr` R package helps researchers organize their analyses in a way that promotes effective project management, reproducibility, collaboration, and sharing of results. Workflowr combines literate programming (knitr and rmarkdown) and version control (Git, via git2r) to generate a website containing time-stamped, versioned, and documented results.[github](https://github.com/jdblischak/workflowr)
+
+>The `targets` R package is a Make-like pipeline toolkit for statistics and data science in R. With targets, you can maintain a reproducible workflow without repeating yourself. targets skips costly runtime for tasks that are already up to date, runs the necessary computation with implicit parallel computing, and abstracts files as R objects. A fully up-to-date targets pipeline is tangible evidence that the output aligns with the code and data, which substantiates trust in the results.[github](https://github.com/ropensci/targets)
 
 

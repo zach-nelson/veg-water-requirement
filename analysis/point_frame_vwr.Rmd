@@ -1,0 +1,291 @@
+---
+title: "Greenbook section III.A.1. Calculation of Vegetation Water Requirement (VWR)"
+author: "Water Department - County of Inyo"
+date: "7/1/2021"
+output: 
+ html_document: 
+   code_folding: hide
+   fig_caption: yes
+   toc: yes
+   toc_depth: 5
+   toc_float:
+     collapsed: yes
+     smooth_scroll: yes
+editor_options: 
+  chunk_output_type: inline
+---
+```{r setup, include=FALSE}
+library(targets)
+library(tidyverse)
+library(rmarkdown)
+library(DT)
+library(htmlwidgets)
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+options(tidyverse.quiet = TRUE)
+```
+
+This reproducible R Markdown analysis was created with `workflowr` (version 1.6.2)[https://jdblischak.github.io/workflowr/index.html] and `targets` (version 0.4.2)[https://docs.ropensci.org/targets/]. The `workflowr` package sets up a standardized folder structure for Rstudio integration with github version control and provides a set of helper functions to build a github pages static website from Rstudio, commit changes to github, publish updates. The repository can be shared, cloned and improved through pull requests. The `targets` package provides the data pipeline functions, where upstream changes to files cause only those downstream dependencies to be rerun. Using targets also has the nice byproduct of forcing functional programming habits over imperative programming, which should make the code easier to maintain.
+
+
+# Targets
+
+```{r targets-show, eval=FALSE}
+library(targets)
+library(tidyverse)
+library(tarchetypes)
+library(DT)
+
+source("code/R/functions.R")
+tar_option_set(
+  packages = c(
+    "tidyverse",
+    "stringr"
+  )
+
+)
+list(
+  # set the year we are working with
+  tar_target(cYear, 2021),
+  # set the file names to watch for changes - point_frame.csv is the only one changing each year
+  tar_target(vwrmax_file, "data/vwr_max_lookup.csv", format = "file"),
+  tar_target(sitesoil_file, "data/vwr_site_soil_designation.csv", format = "file"),
+  tar_target(pointframe_file, "data/point_frame.csv", format = "file"),
+  # if the file has changed since the last tar_make(), read in the updated file
+  tar_target(vwrmax_lookt, read.csv(vwrmax_file)),
+  tar_target(sitesoil, read.csv(sitesoil_file)),
+  tar_target(pointframe_wide, read.csv(pointframe_file)),
+
+  # tidy point frame data
+  tar_target(pointframe_long, gather(pointframe_wide, species, all.hits, SPAI:OTHER)),
+  # calculate LAI from species cover rows - greenbook formula .5 extinction coefficient
+  tar_target(pointframe_lai, mutate(pointframe_long, lai = all.hits/334 * 2)),
+
+  # Join columns, site soil, lai, vwr max lookup values
+  tar_target(lai_ss, left_join(sitesoil,pointframe_lai, by = "site")),
+  tar_target(lai_ss_vwrmax,left_join(lai_ss,vwrmax_lookt, by = c('soil','species'))),
+
+  # calculate vwr of six primary species
+  tar_target(vwr, mutate(lai_ss_vwrmax,vwr = lai*vwr_at_lai_max)),
+  # calculate weighted average of six species VWR/LAI for each site
+  tar_target(weighted.avg., weighted_avg(vwr)),
+
+  # joins the weighted average and calcs vwr for other category
+  # creates new column containing both vwr for each species and the other column
+  # creates new site column as factor with levels corresponding north to south following VWR excel table.
+  tar_target(vwr.total,vwr_total(vwr,weighted.avg.)),
+
+  # view wider with period (july, oct) as columns following VWR excel table.
+  tar_target(vwr.wide.period, vwr_site_total_period(vwr.total, cYear))
+  )
+
+
+
+
+  
+```
+
+# Functions
+
+```{r functions-show, eval=FALSE}
+
+
+#' Title
+#'
+#' @param vwr
+#'
+#' @return
+#' @export
+#'
+#' @examples
+weighted_avg <- function(vwr){
+  vwr %>% filter(species != 'OTHER') %>% filter(all.hits >0) %>%
+    group_by(site,period) %>%
+    summarise(w_avg_vwr_per_lai = sum(vwr)/sum(lai)) %>%
+    mutate(species = 'OTHER')
+}
+
+#' Title
+#'
+#' @param vwr
+#' @param weighted.avg.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+vwr_total <- function(vwr, weighted.avg.){
+  vwr %>% left_join(weighted.avg., by = c('site', 'species', 'period')) %>%
+    mutate(other.vwr = w_avg_vwr_per_lai * lai,
+           total.vwr = case_when(!is.na(vwr)~vwr,
+                                 !is.na(other.vwr)~other.vwr),
+           site.f = factor(site, levels = c("LW1",
+                                            "LW2",
+                                            "LW3",
+                                            "BC1",
+                                            "BC2",
+                                            "BC3",
+                                            "BP1",
+                                            "BP2",
+                                            "BP3",
+                                            "BP4",
+                                            "TA3",
+                                            "TA4",
+                                            "TA5",
+                                            "TA6",
+                                            "TAC",
+                                            "TS1",
+                                            "TS2",
+                                            "TS3",
+                                            "TS4",
+                                            "TSC",
+                                            "IO1",
+                                            "IO2",
+                                            "IC1",
+                                            "IC2",
+                                            "SS1",
+                                            "SS2",
+                                            "SS3",
+                                            "SS4",
+                                            "BG2",
+                                            "BGC")
+                           )
+    )
+
+}
+
+
+#' Title
+#'
+#' @param vwr.total 
+#' @param cYear 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+vwr_site_total_period <- function(vwr.total,cYear){
+  vwr.total %>% filter(all.hits > 0) %>%
+  select(site.f,period,species,lai,total.vwr) %>%
+  group_by(site.f,period) %>%
+  summarise(site.vwr = sum(total.vwr)) %>%
+  pivot_wider(names_from = period, values_from = site.vwr)
+}
+
+
+
+```
+
+
+# View targets pipeline
+
+```{r vis-network}
+
+tar_visnetwork()
+
+```
+
+The 'Stems' (circles) represent data file input, intermediate and final data wrangling transformations with computations of LAI and VWR. The functions (triangles) take an input stem and output a new stem shown by linkages in the pipeline. Color green indicates the stems and functions are up to date - grey indicates changes have been made since the last `tar_make()` call.
+ 
+## Read data
+Once the targets pipeline is made, the targets are stored in `_targets/objects` of the working directory where `_targets.R` script file is made - these targets can be read into rmarkdown documents using tar_read().
+
+```{r read-targets}
+cYear <- tar_read(cYear)# current year
+# pfw <- tar_read(pointframe_wide)# wide point frame data
+# pfl <- tar_read(pointframe_long)# long point frame data
+# ss <- tar_read(sitesoil)# site soil texture -sand/silt
+# vwrmax <- tar_read(vwrmax_lookt)#empirical vwr max at LAI = 1
+# lai <- tar_read(pointframe_lai)# cover data converted to leaf area index (LAI)
+# lai_ss <- tar_read(lai_ss) # LAI joined to site soil texture
+# lai_ss_vwrmax <- tar_read(lai_ss_vwrmax) # LAI-soil text joined to VWR max
+# vwr <- tar_read(vwr)# VWR = LAI*VWR max
+# weighted.avg. <- tar_read(weighted.avg.)# to compute VWR for the 'OTHER' catchall for non-dominant species, total VWR/LAI for six dominant species multiplied by site LAI total for 'OTHER' category
+# vwr.total <- tar_read(vwr.total)# VWR complete for 6 species and OTHER.
+# vwr.wide.period <- tar_read(vwr.wide.period) # pivot wider so that July(half year) and October(full year) VWR are columns.
+```
+
+# Incoming Data
+Point frame data is currently entered onto excel spreadsheets on field tablets, and species level totals are transcribed to this wide format spreadsheet with site as rows and species as columns. The number represents number of hits for each species in 3 dimensions every 30 cm for 334 pin drops.
+
+```{r pf-wide}
+
+tar_read(pointframe_wide) %>% datatable(caption = paste0('Point frame data entered in wide format in ',cYear,"."),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE)) 
+
+# %>% formatRound(c('july','oct'),2)
+```
+
+# Tidy Data
+
+The wide data is transformed into long format (tidy data). It should be noted here that the incoming wide format is an unnecessary intermediate format - a byproduct of doing column-wise calculations in the VWR excel calculator. Going forward, programmatically extracting the site-species-count rows into long format from the data entry spreadsheet should be a goal of the end to end data pipeline.
+
+```{r read-pf-long}
+
+tar_read(pointframe_long) %>% datatable(caption = paste0('Tidy point-frame data (site-species unique row combos) obtained with pivot_longer() function on wide input data above. Data updated in ',cYear,"."),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE)) 
+
+```
+
+```{r table-site-soil, eval=FALSE}
+
+tar_read(sitesoil) %>% datatable(caption = paste0("Site soil texture designation (silt or sand)."),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE))
+```
+
+```{r join-lai-ss-vwrmax, eval=FALSE}
+# lai_ss_vwrmax <- lai_ss %>% left_join(vwrmax, by = c('soil','species'))
+# datatable(lai_ss_vwrmax)
+
+tar_read(vwrmax_lookt) %>% datatable(caption = paste0('Species-level leaf area index (LAI) for July 1, ',cYear,", and VWR max for each period (July or October), site soil texture designation (silt or sand) affecting plant available water."),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE))%>% formatRound('lai',2)
+```
+
+```{r table-vwr, eval=FALSE}
+# vwr <- lai_ss_vwrmax %>% mutate(vwr = lai*vwr_at_lai_max)
+
+tar_read(vwr) %>% filter(lai>0) %>%  datatable(caption = paste0('Species-level VWR at each site computed from multiplying LAI by VWR max for each period (July or October)'),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE))%>% formatRound(c('lai','vwr_at_lai_max','vwr'),2)
+# datatable(vwr)
+# 420 rows
+
+# 30 sites, 2 periods, 7 species including other
+# rows <- 30*2*7
+```
+
+# Weighted average VWR/LAI 
+The sum of vwr for six species divided by sum of lai for six co-ocurring species provides estimates for VWRmax for the `OTHER` category.
+
+This value is multiplied by the LAI of the `OTHER` column to obtain VWR for `OTHER`.
+
+```{r table-weighted-avg}
+
+tar_read(weighted.avg.)%>% datatable(caption = paste0('Site-level weighted average VWR/LAI for ',cYear,", used as VWR max for OTHER species category for each period (July or October)."),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE))%>% formatRound(c('w_avg_vwr_per_lai'),2)
+
+```
+
+# Species level VWR
+Here we combine the site VWRs from the six dominant species and from the OTHER column into a single column.
+
+```{r table-vwr-species-level}
+# join weighted avg VWR/LAI to vwr by site, species, period, and combined 
+
+tar_read(vwr.total) %>% filter(all.hits > 0) %>% select(site,period,species,lai,total.vwr) %>%  datatable(caption = paste0("Total VWR for six dominant species and other species combined into one column"),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE)) %>% formatRound(c('lai','total.vwr'),2)
+```
+
+# Site-level VWR
+
+```{r table-vwr-site}
+# vwr.total <- vwr.total %>% mutate(site.f = factor(site, levels = ns_order))
+
+
+
+tar_read(vwr.wide.period) %>% datatable(caption = paste0('Vegetation water requirements (cm) July 1 (half year) and Oct 1 (full year), for ',cYear,', calculated according to Greenbook section III.A.1.'),filter = c("top"),options = list(
+  pageLength = 5, autoWidth = TRUE),colnames = c('Site','July','October')) %>% formatRound(c('july','oct'),2) 
+# %>% htmlwidgets::saveWidget(paste0(cYear,'_jul_oct_vwr.html'))
+
+```
+
+

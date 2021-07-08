@@ -6,7 +6,7 @@ navbar:
   - text: Home
     href: index.html
   - text: VWR
-    href: point_frame.html
+    href: point_frame_vwr.html
   - text: About
     href: about.html
   - text: License
