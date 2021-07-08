@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Water Department - County of Inyo" />
+
+
+<title>Greenbook section III.A.1. Calculation of Vegetation Water Requirement (VWR)</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="site_libs/vis-4.20.1/vis.css" rel="stylesheet" />
+<script src="site_libs/vis-4.20.1/vis.min.js"></script>
+<script src="site_libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.15/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">veg-water-requirement</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="point_frame_vwr.html">VWR</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/zach-nelson/veg-water-requirement">
+    <span class="fas fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Greenbook section III.A.1. Calculation of Vegetation Water Requirement (VWR)</h1>
+<h4 class="author">Water Department - County of Inyo</h4>
+<h4 class="date">7/1/2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-07-08
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>C:/Dropbox/Rprojects/veg-water-requirement/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210701code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210701)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210701code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210701)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtreeb396e3818079fd4ab48e947b35d736090f37c5catargetblankb396e38a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zach-nelson/veg-water-requirement/tree/b396e3818079fd4ab48e947b35d736090f37c5ca" target="_blank">b396e38</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtreeb396e3818079fd4ab48e947b35d736090f37c5catargetblankb396e38a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/zach-nelson/veg-water-requirement/tree/b396e3818079fd4ab48e947b35d736090f37c5ca" target="_blank">b396e38</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.RData
+    Ignored:    analysis/.Rhistory
+    Ignored:    analysis/.Rproj.user/
+    Ignored:    analysis/site_libs/
+
+Untracked files:
+    Untracked:  _targets.R
+    Untracked:  _targets/
+    Untracked:  analysis/license.knit.md
+    Untracked:  analysis/license.utf8.md
+    Untracked:  code/R/
+    Untracked:  code/setup.R
+    Untracked:  data/point_frame.csv
+    Untracked:  data/vwr_max_lookup.csv
+    Untracked:  data/vwr_site_soil_designation.csv
+    Untracked:  output/Rplot.png
+    Untracked:  output/vis.png
+    Untracked:  point_frame_vwr.Rmd
+    Untracked:  point_frame_vwr.html
+
+Unstaged changes:
+    Deleted:    analysis/_targets/meta/meta
+    Deleted:    analysis/_targets/meta/process
+    Deleted:    analysis/_targets/meta/progress
+    Deleted:    analysis/_targets/objects/cYear
+    Deleted:    analysis/_targets/objects/lai_ss
+    Deleted:    analysis/_targets/objects/lai_ss_vwrmax
+    Deleted:    analysis/_targets/objects/pointframe_lai
+    Deleted:    analysis/_targets/objects/pointframe_long
+    Deleted:    analysis/_targets/objects/pointframe_wide
+    Deleted:    analysis/_targets/objects/sitesoil
+    Deleted:    analysis/_targets/objects/vwr
+    Deleted:    analysis/_targets/objects/vwr.total
+    Deleted:    analysis/_targets/objects/vwr.wide.period
+    Deleted:    analysis/_targets/objects/vwrmax_lookt
+    Deleted:    analysis/_targets/objects/weighted.avg
+    Deleted:    analysis/functions.R
+    Deleted:    analysis/point_frame.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/point_frame_vwr.Rmd</code>) and HTML (<code>docs/point_frame_vwr.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/zach-nelson/veg-water-requirement/blob/b396e3818079fd4ab48e947b35d736090f37c5ca/analysis/point_frame_vwr.Rmd" target="_blank">b396e38</a>
+</td>
+<td>
+zach-nelson
+</td>
+<td>
+2021-07-08
+</td>
+<td>
+rebuild vwr site showing targets and functions in vwr html
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p>This reproducible R Markdown analysis was created with <code>workflowr</code> (version 1.6.2)[<a href="https://jdblischak.github.io/workflowr/index.html" class="uri">https://jdblischak.github.io/workflowr/index.html</a>] and <code>targets</code> (version 0.4.2)[<a href="https://docs.ropensci.org/targets/" class="uri">https://docs.ropensci.org/targets/</a>]. The <code>workflowr</code> package sets up a standardized folder structure for Rstudio integration with github version control and provides a set of helper functions to build a github pages static website from Rstudio, commit changes to github, publish updates. The repository can be shared, cloned and improved through pull requests. The <code>targets</code> package provides the data pipeline functions, where upstream changes to files cause only those downstream dependencies to be rerun. Using targets also has the nice byproduct of forcing functional programming habits over imperative programming, which should make the code easier to maintain.</p>
+<div id="targets" class="section level1">
+<h1>Targets</h1>
+<pre class="r"><code>library(targets)
+library(tidyverse)
+library(tarchetypes)
+library(DT)
+
+source(&quot;code/R/functions.R&quot;)
+tar_option_set(
+  packages = c(
+    &quot;tidyverse&quot;,
+    &quot;stringr&quot;
+  )
+
+)
+list(
+  # set the year we are working with
+  tar_target(cYear, 2021),
+  # set the file names to watch for changes - point_frame.csv is the only one changing each year
+  tar_target(vwrmax_file, &quot;data/vwr_max_lookup.csv&quot;, format = &quot;file&quot;),
+  tar_target(sitesoil_file, &quot;data/vwr_site_soil_designation.csv&quot;, format = &quot;file&quot;),
+  tar_target(pointframe_file, &quot;data/point_frame.csv&quot;, format = &quot;file&quot;),
+  # if the file has changed since the last tar_make(), read in the updated file
+  tar_target(vwrmax_lookt, read.csv(vwrmax_file)),
+  tar_target(sitesoil, read.csv(sitesoil_file)),
+  tar_target(pointframe_wide, read.csv(pointframe_file)),
+
+  # tidy point frame data
+  tar_target(pointframe_long, gather(pointframe_wide, species, all.hits, SPAI:OTHER)),
+  # calculate LAI from species cover rows - greenbook formula .5 extinction coefficient
+  tar_target(pointframe_lai, mutate(pointframe_long, lai = all.hits/334 * 2)),
+
+  # Join columns, site soil, lai, vwr max lookup values
+  tar_target(lai_ss, left_join(sitesoil,pointframe_lai, by = &quot;site&quot;)),
+  tar_target(lai_ss_vwrmax,left_join(lai_ss,vwrmax_lookt, by = c(&#39;soil&#39;,&#39;species&#39;))),
+
+  # calculate vwr of six primary species
+  tar_target(vwr, mutate(lai_ss_vwrmax,vwr = lai*vwr_at_lai_max)),
+  # calculate weighted average of six species VWR/LAI for each site
+  tar_target(weighted.avg., weighted_avg(vwr)),
+
+  # joins the weighted average and calcs vwr for other category
+  # creates new column containing both vwr for each species and the other column
+  # creates new site column as factor with levels corresponding north to south following VWR excel table.
+  tar_target(vwr.total,vwr_total(vwr,weighted.avg.)),
+
+  # view wider with period (july, oct) as columns following VWR excel table.
+  tar_target(vwr.wide.period, vwr_site_total_period(vwr.total, cYear))
+  )</code></pre>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<pre class="r"><code>#&#39; Title
+#&#39;
+#&#39; @param vwr
+#&#39;
+#&#39; @return
+#&#39; @export
+#&#39;
+#&#39; @examples
+weighted_avg &lt;- function(vwr){
+  vwr %&gt;% filter(species != &#39;OTHER&#39;) %&gt;% filter(all.hits &gt;0) %&gt;%
+    group_by(site,period) %&gt;%
+    summarise(w_avg_vwr_per_lai = sum(vwr)/sum(lai)) %&gt;%
+    mutate(species = &#39;OTHER&#39;)
+}
+
+#&#39; Title
+#&#39;
+#&#39; @param vwr
+#&#39; @param weighted.avg.
+#&#39;
+#&#39; @return
+#&#39; @export
+#&#39;
+#&#39; @examples
+vwr_total &lt;- function(vwr, weighted.avg.){
+  vwr %&gt;% left_join(weighted.avg., by = c(&#39;site&#39;, &#39;species&#39;, &#39;period&#39;)) %&gt;%
+    mutate(other.vwr = w_avg_vwr_per_lai * lai,
+           total.vwr = case_when(!is.na(vwr)~vwr,
+                                 !is.na(other.vwr)~other.vwr),
+           site.f = factor(site, levels = c(&quot;LW1&quot;,
+                                            &quot;LW2&quot;,
+                                            &quot;LW3&quot;,
+                                            &quot;BC1&quot;,
+                                            &quot;BC2&quot;,
+                                            &quot;BC3&quot;,
+                                            &quot;BP1&quot;,
+                                            &quot;BP2&quot;,
+                                            &quot;BP3&quot;,
+                                            &quot;BP4&quot;,
+                                            &quot;TA3&quot;,
+                                            &quot;TA4&quot;,
+                                            &quot;TA5&quot;,
+                                            &quot;TA6&quot;,
+                                            &quot;TAC&quot;,
+                                            &quot;TS1&quot;,
+                                            &quot;TS2&quot;,
+                                            &quot;TS3&quot;,
+                                            &quot;TS4&quot;,
+                                            &quot;TSC&quot;,
+                                            &quot;IO1&quot;,
+                                            &quot;IO2&quot;,
+                                            &quot;IC1&quot;,
+                                            &quot;IC2&quot;,
+                                            &quot;SS1&quot;,
+                                            &quot;SS2&quot;,
+                                            &quot;SS3&quot;,
+                                            &quot;SS4&quot;,
+                                            &quot;BG2&quot;,
+                                            &quot;BGC&quot;)
+                           )
+    )
+
+}
+
+
+#&#39; Title
+#&#39;
+#&#39; @param vwr.total 
+#&#39; @param cYear 
+#&#39;
+#&#39; @return
+#&#39; @export
+#&#39;
+#&#39; @examples
+vwr_site_total_period &lt;- function(vwr.total,cYear){
+  vwr.total %&gt;% filter(all.hits &gt; 0) %&gt;%
+  select(site.f,period,species,lai,total.vwr) %&gt;%
+  group_by(site.f,period) %&gt;%
+  summarise(site.vwr = sum(total.vwr)) %&gt;%
+  pivot_wider(names_from = period, values_from = site.vwr)
+}</code></pre>
+</div>
+<div id="view-targets-pipeline" class="section level1">
+<h1>View targets pipeline</h1>
+<pre class="r"><code>tar_visnetwork()</code></pre>
+<pre><code>Loading .Rprofile for the current workflowr project
+This is workflowr version 1.6.2
+Run ?workflowr for help getting started
+Warning message:
+package &#39;workflowr&#39; was built under R version 4.0.5 
+-- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+v ggplot2 3.3.5     v purrr   0.3.4
+v tibble  3.1.2     v dplyr   1.0.7
+v tidyr   1.1.3     v stringr 1.4.0
+v readr   1.4.0     v forcats 0.5.0
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()
+Warning messages:
+1: package &#39;targets&#39; was built under R version 4.0.5 
+2: package &#39;ggplot2&#39; was built under R version 4.0.5 
+3: package &#39;tibble&#39; was built under R version 4.0.5 
+4: package &#39;tidyr&#39; was built under R version 4.0.5 
+5: package &#39;readr&#39; was built under R version 4.0.5 
+6: package &#39;dplyr&#39; was built under R version 4.0.5 
+7: package &#39;tarchetypes&#39; was built under R version 4.0.4 </code></pre>
+<div id="htmlwidget-e67324d0e1a0077f0482" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e67324d0e1a0077f0482">{"x":{"nodes":{"name":["cYear","lai_ss","lai_ss_vwrmax","pointframe_file","pointframe_lai","pointframe_long","pointframe_wide","sitesoil","sitesoil_file","vwr","vwr.total","vwr.wide.period","vwrmax_file","vwrmax_lookt","weighted.avg.","vwr_site_total_period","vwr_total","weighted_avg"],"type":["stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","function","function","function"],"status":["uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate"],"seconds":[0,0.03,0.02,0,0.05,0.03,0.02,0,0,0,0.04,0.08,0,0.03,0.06,null,null,null],"bytes":[54,1002,1413,557,945,525,466,236,311,2401,3713,1055,596,326,1044,null,null,null],"branches":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"id":["cYear","lai_ss","lai_ss_vwrmax","pointframe_file","pointframe_lai","pointframe_long","pointframe_wide","sitesoil","sitesoil_file","vwr","vwr.total","vwr.wide.period","vwrmax_file","vwrmax_lookt","weighted.avg.","vwr_site_total_period","vwr_total","weighted_avg"],"label":["cYear","lai_ss","lai_ss_vwrmax","pointframe_file","pointframe_lai","pointframe_long","pointframe_wide","sitesoil","sitesoil_file","vwr","vwr.total","vwr.wide.period","vwrmax_file","vwrmax_lookt","weighted.avg.","vwr_site_total_period","vwr_total","weighted_avg"],"level":[1,5,6,1,4,3,2,2,1,7,9,10,1,2,8,1,1,1],"color":["#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823"],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","triangle","triangle","triangle"]},"edges":{"from":["cYear","vwr.total","vwr_site_total_period","vwr","weighted_avg","lai_ss_vwrmax","vwr","vwr_total","weighted.avg.","pointframe_wide","pointframe_file","lai_ss","vwrmax_lookt","sitesoil_file","vwrmax_file","pointframe_lai","sitesoil","pointframe_long"],"to":["vwr.wide.period","vwr.wide.period","vwr.wide.period","weighted.avg.","weighted.avg.","vwr","vwr.total","vwr.total","vwr.total","pointframe_long","pointframe_wide","lai_ss_vwrmax","lai_ss_vwrmax","sitesoil","vwrmax_lookt","lai_ss","lai_ss","pointframe_lai"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Stem","Function"],"color":["#354823","#899DA4","#899DA4"],"shape":["dot","dot","triangle"]},"nodesToDataframe":true}},"evals":[],"jsHooks":[]}</script>
+<p>The ‘Stems’ (circles) represent data file input, intermediate and final data wrangling transformations with computations of LAI and VWR. The functions (triangles) take an input stem and output a new stem shown by linkages in the pipeline. Color green indicates the stems and functions are up to date - grey indicates changes have been made since the last <code>tar_make()</code> call.</p>
+<div id="read-data" class="section level2">
+<h2>Read data</h2>
+<p>Once the targets pipeline is made, the targets are stored in <code>_targets/objects</code> of the working directory where <code>_targets.R</code> script file is made - these targets can be read into rmarkdown documents using tar_read().</p>
+<pre class="r"><code>cYear &lt;- tar_read(cYear)# current year
+# pfw &lt;- tar_read(pointframe_wide)# wide point frame data
+# pfl &lt;- tar_read(pointframe_long)# long point frame data
+# ss &lt;- tar_read(sitesoil)# site soil texture -sand/silt
+# vwrmax &lt;- tar_read(vwrmax_lookt)#empirical vwr max at LAI = 1
+# lai &lt;- tar_read(pointframe_lai)# cover data converted to leaf area index (LAI)
+# lai_ss &lt;- tar_read(lai_ss) # LAI joined to site soil texture
+# lai_ss_vwrmax &lt;- tar_read(lai_ss_vwrmax) # LAI-soil text joined to VWR max
+# vwr &lt;- tar_read(vwr)# VWR = LAI*VWR max
+# weighted.avg. &lt;- tar_read(weighted.avg.)# to compute VWR for the &#39;OTHER&#39; catchall for non-dominant species, total VWR/LAI for six dominant species multiplied by site LAI total for &#39;OTHER&#39; category
+# vwr.total &lt;- tar_read(vwr.total)# VWR complete for 6 species and OTHER.
+# vwr.wide.period &lt;- tar_read(vwr.wide.period) # pivot wider so that July(half year) and October(full year) VWR are columns.</code></pre>
+</div>
+</div>
+<div id="incoming-data" class="section level1">
+<h1>Incoming Data</h1>
+<p>Point frame data is currently entered onto excel spreadsheets on field tablets, and species level totals are transcribed to this wide format spreadsheet with site as rows and species as columns. The number represents number of hits for each species in 3 dimensions every 30 cm for 334 pin drops.</p>
+<pre class="r"><code>tar_read(pointframe_wide) %&gt;% datatable(caption = paste0(&#39;Point frame data entered in wide format in &#39;,cYear,&quot;.&quot;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE)) </code></pre>
+<div id="htmlwidget-f5bb0986f353d0e56a85" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f5bb0986f353d0e56a85">{"x":{"filter":"top","filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"98\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"2\" data-max=\"32\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"28\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"2\" data-max=\"88\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"46\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"3\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"34\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Point frame data entered in wide format in 2021.<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"],["LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC"],[null,12,98,5,null,1,16,null,1,null,17,14,2,15,19,4,13,19,27,17,28,null,null,4,null,null,null,null,null,1],[null,null,5,null,8,17,null,null,null,null,null,3,null,null,31,null,2,32,11,null,null,null,null,null,null,null,null,null,null,4],[null,5,null,27,28,24,null,17,6,null,null,10,null,11,null,null,null,null,6,1,20,null,19,5,null,null,null,null,null,22],[null,2,8,12,null,14,14,21,null,11,11,null,null,14,39,88,2,6,16,null,5,10,17,null,21,5,49,23,6,16],[45,14,1,12,null,null,20,null,30,29,4,null,4,null,null,null,null,null,46,4,null,null,null,null,11,null,null,null,1,null],[null,null,null,null,null,null,null,null,1,null,null,null,2,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,null,null],[null,null,null,18,2,20,null,null,null,1,15,2,3,null,32,null,34,null,7,9,32,null,15,2,1,1,1,null,5,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>site<\/th>\n      <th>SPAI<\/th>\n      <th>DISP<\/th>\n      <th>CHNA<\/th>\n      <th>ATTO<\/th>\n      <th>SAVE<\/th>\n      <th>ATCO<\/th>\n      <th>OTHER<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"autoWidth":true,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code># %&gt;% formatRound(c(&#39;july&#39;,&#39;oct&#39;),2)</code></pre>
+</div>
+<div id="tidy-data" class="section level1">
+<h1>Tidy Data</h1>
+<p>The wide data is transformed into long format (tidy data). It should be noted here that the incoming wide format is an unnecessary intermediate format - a byproduct of doing column-wise calculations in the VWR excel calculator. Going forward, programmatically extracting the site-species-count rows into long format from the data entry spreadsheet should be a goal of the end to end data pipeline.</p>
+<pre class="r"><code>tar_read(pointframe_long) %&gt;% datatable(caption = paste0(&#39;Tidy point-frame data (site-species unique row combos) obtained with pivot_longer() function on wide input data above. Data updated in &#39;,cYear,&quot;.&quot;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE)) </code></pre>
+<div id="htmlwidget-bcef27b1c49e513a8e08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bcef27b1c49e513a8e08">{"x":{"filter":"top","filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"integer\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"1\" data-max=\"98\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Tidy point-frame data (site-species unique row combos) obtained with pivot_longer() function on wide input data above. Data updated in 2021.<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210"],["LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC","LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC","LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC","LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC","LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC","LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC","LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC"],["SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","SPAI","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","DISP","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","CHNA","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","ATTO","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","SAVE","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","ATCO","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER"],[null,12,98,5,null,1,16,null,1,null,17,14,2,15,19,4,13,19,27,17,28,null,null,4,null,null,null,null,null,1,null,null,5,null,8,17,null,null,null,null,null,3,null,null,31,null,2,32,11,null,null,null,null,null,null,null,null,null,null,4,null,5,null,27,28,24,null,17,6,null,null,10,null,11,null,null,null,null,6,1,20,null,19,5,null,null,null,null,null,22,null,2,8,12,null,14,14,21,null,11,11,null,null,14,39,88,2,6,16,null,5,10,17,null,21,5,49,23,6,16,45,14,1,12,null,null,20,null,30,29,4,null,4,null,null,null,null,null,46,4,null,null,null,null,11,null,null,null,1,null,null,null,null,null,null,null,null,null,1,null,null,null,2,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,null,null,null,null,null,18,2,20,null,null,null,1,15,2,3,null,32,null,34,null,7,9,32,null,15,2,1,1,1,null,5,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>site<\/th>\n      <th>species<\/th>\n      <th>all.hits<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"autoWidth":true,"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>tar_read(sitesoil) %&gt;% datatable(caption = paste0(&quot;Site soil texture designation (silt or sand).&quot;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE))</code></pre>
+<pre class="r"><code># lai_ss_vwrmax &lt;- lai_ss %&gt;% left_join(vwrmax, by = c(&#39;soil&#39;,&#39;species&#39;))
+# datatable(lai_ss_vwrmax)
+
+tar_read(vwrmax_lookt) %&gt;% datatable(caption = paste0(&#39;Species-level leaf area index (LAI) for July 1, &#39;,cYear,&quot;, and VWR max for each period (July or October), site soil texture designation (silt or sand) affecting plant available water.&quot;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE))%&gt;% formatRound(&#39;lai&#39;,2)</code></pre>
+<pre class="r"><code># vwr &lt;- lai_ss_vwrmax %&gt;% mutate(vwr = lai*vwr_at_lai_max)
+
+tar_read(vwr) %&gt;% filter(lai&gt;0) %&gt;%  datatable(caption = paste0(&#39;Species-level VWR at each site computed from multiplying LAI by VWR max for each period (July or October)&#39;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE))%&gt;% formatRound(c(&#39;lai&#39;,&#39;vwr_at_lai_max&#39;,&#39;vwr&#39;),2)
+# datatable(vwr)
+# 420 rows
+
+# 30 sites, 2 periods, 7 species including other
+# rows &lt;- 30*2*7</code></pre>
+</div>
+<div id="weighted-average-vwrlai" class="section level1">
+<h1>Weighted average VWR/LAI</h1>
+<p>The sum of vwr for six species divided by sum of lai for six co-ocurring species provides estimates for VWRmax for the <code>OTHER</code> category.</p>
+<p>This value is multiplied by the LAI of the <code>OTHER</code> column to obtain VWR for <code>OTHER</code>.</p>
+<pre class="r"><code>tar_read(weighted.avg.)%&gt;% datatable(caption = paste0(&#39;Site-level weighted average VWR/LAI for &#39;,cYear,&quot;, used as VWR max for OTHER species category for each period (July or October).&quot;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE))%&gt;% formatRound(c(&#39;w_avg_vwr_per_lai&#39;),2)</code></pre>
+<div id="htmlwidget-5909ae1c259c5de625c9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5909ae1c259c5de625c9">{"x":{"filter":"top","filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"9.3\" data-max=\"35.0333333333333\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"disabled\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Site-level weighted average VWR/LAI for 2021, used as VWR max for OTHER species category for each period (July or October).<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60"],["BC1","BC1","BC2","BC2","BC3","BC3","BG2","BG2","BGC","BGC","BP1","BP1","BP2","BP2","BP3","BP3","BP4","BP4","IC1","IC1","IC2","IC2","IO1","IO1","IO2","IO2","LW1","LW1","LW2","LW2","LW3","LW3","SS1","SS1","SS2","SS2","SS3","SS3","SS4","SS4","TA3","TA3","TA4","TA4","TA5","TA5","TA6","TA6","TAC","TAC","TS1","TS1","TS2","TS2","TS3","TS3","TS4","TS4","TSC","TSC"],["july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct"],[15.5026785714286,28.3303571428571,18.9111111111111,35.0333333333333,16.6621428571429,31.0214285714286,10.4285714285714,19.2428571428571,15.2204651162791,28.246511627907,14.7576,26.976,13.4605263157895,24.9605263157895,16.9155263157895,30.0763157894737,15.0275,26.7525,14.2083333333333,26.3194444444444,17.6577777777778,32.9222222222222,16.602641509434,31.0679245283019,9.3,17.4,17.2,30.3,14.1660606060606,25.5060606060606,9.67741071428572,17.775,12.015625,21.834375,9.3,17.4,9.3,17.4,9.3,17.4,14.101875,26.34375,17.6562962962963,33.0592592592593,14.12,25.575,14.55,27.2225,14.5597752808989,27.3820224719101,9.31260869565217,17.4086956521739,9.66176470588235,17.7764705882353,10.0647368421053,18.5333333333333,16.1939622641509,29.5660377358491,15.3744,28.696],["OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER","OTHER"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>site<\/th>\n      <th>period<\/th>\n      <th>w_avg_vwr_per_lai<\/th>\n      <th>species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"autoWidth":true,"columnDefs":[{"targets":3,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":["options.columnDefs.0.render"],"jsHooks":[]}</script>
+</div>
+<div id="species-level-vwr" class="section level1">
+<h1>Species level VWR</h1>
+<p>Here we combine the site VWRs from the six dominant species and from the OTHER column into a single column.</p>
+<pre class="r"><code># join weighted avg VWR/LAI to vwr by site, species, period, and combined 
+
+tar_read(vwr.total) %&gt;% filter(all.hits &gt; 0) %&gt;% select(site,period,species,lai,total.vwr) %&gt;%  datatable(caption = paste0(&quot;Total VWR for six dominant species and other species combined into one column&quot;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE)) %&gt;% formatRound(c(&#39;lai&#39;,&#39;total.vwr&#39;),2)</code></pre>
+<div id="htmlwidget-087a814a0f54d4929b15" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-087a814a0f54d4929b15">{"x":{"filter":"top","filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"0.005988023952095\" data-max=\"0.58682634730539\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"0.033532934131736\" data-max=\"10.3281437125748\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Total VWR for six dominant species and other species combined into one column<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198"],["LW1","LW1","LW2","LW2","LW2","LW2","LW2","LW2","LW2","LW2","LW3","LW3","LW3","LW3","LW3","LW3","LW3","LW3","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC1","BC2","BC2","BC2","BC2","BC2","BC2","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BC3","BP1","BP1","BP1","BP1","BP1","BP1","BP2","BP2","BP2","BP2","BP3","BP3","BP3","BP3","BP3","BP3","BP3","BP3","BP4","BP4","BP4","BP4","BP4","BP4","TA3","TA3","TA3","TA3","TA3","TA3","TA3","TA3","TA4","TA4","TA4","TA4","TA4","TA4","TA4","TA4","TA5","TA5","TA5","TA5","TA5","TA5","TA5","TA5","TA6","TA6","TA6","TA6","TA6","TA6","TAC","TAC","TAC","TAC","TAC","TAC","TAC","TAC","TS1","TS1","TS1","TS1","TS2","TS2","TS2","TS2","TS2","TS2","TS2","TS2","TS3","TS3","TS3","TS3","TS3","TS3","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TS4","TSC","TSC","TSC","TSC","TSC","TSC","TSC","TSC","TSC","TSC","IO1","IO1","IO1","IO1","IO1","IO1","IO1","IO1","IO2","IO2","IC1","IC1","IC1","IC1","IC1","IC1","IC2","IC2","IC2","IC2","IC2","IC2","SS1","SS1","SS1","SS1","SS1","SS1","SS2","SS2","SS2","SS2","SS3","SS3","SS3","SS3","SS4","SS4","BG2","BG2","BG2","BG2","BG2","BG2","BGC","BGC","BGC","BGC","BGC","BGC","BGC","BGC"],["july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","oct","july","july","oct","july","oct","oct","july","july","oct","oct","july","july","oct","oct","july","july","oct","july","oct","july","oct","oct","july","july","oct","july","oct","july","oct","july","oct"],["SAVE","SAVE","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","SAVE","SAVE","SPAI","SPAI","DISP","DISP","ATTO","ATTO","SAVE","SAVE","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","DISP","DISP","CHNA","CHNA","OTHER","OTHER","SPAI","SPAI","DISP","DISP","CHNA","CHNA","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","ATTO","ATTO","SAVE","SAVE","CHNA","CHNA","ATTO","ATTO","SPAI","SPAI","CHNA","CHNA","SAVE","SAVE","ATCO","ATCO","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","DISP","DISP","CHNA","CHNA","OTHER","OTHER","SPAI","SPAI","SAVE","SAVE","ATCO","ATCO","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","SPAI","SPAI","DISP","DISP","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","ATTO","ATTO","SPAI","SPAI","DISP","DISP","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","DISP","DISP","ATTO","ATTO","SPAI","SPAI","DISP","DISP","CHNA","CHNA","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","SAVE","SAVE","ATCO","ATCO","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","ATTO","ATTO","OTHER","OTHER","ATTO","ATTO","CHNA","CHNA","ATTO","ATTO","OTHER","OTHER","SPAI","SPAI","CHNA","CHNA","OTHER","OTHER","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","ATTO","ATTO","OTHER","OTHER","ATTO","ATTO","OTHER","OTHER","ATTO","ATTO","ATTO","ATTO","SAVE","SAVE","OTHER","OTHER","SPAI","SPAI","DISP","DISP","CHNA","CHNA","ATTO","ATTO"],[0.269461077844311,0.269461077844311,0.0718562874251497,0.0718562874251497,0.029940119760479,0.029940119760479,0.0119760479041916,0.0119760479041916,0.0838323353293413,0.0838323353293413,0.586826347305389,0.586826347305389,0.029940119760479,0.029940119760479,0.0479041916167665,0.0479041916167665,0.00598802395209581,0.00598802395209581,0.029940119760479,0.029940119760479,0.161676646706587,0.161676646706587,0.0718562874251497,0.0718562874251497,0.0718562874251497,0.0718562874251497,0.107784431137725,0.107784431137725,0.0479041916167665,0.0479041916167665,0.167664670658683,0.167664670658683,0.0119760479041916,0.0119760479041916,0.00598802395209581,0.00598802395209581,0.101796407185629,0.101796407185629,0.143712574850299,0.143712574850299,0.0838323353293413,0.0838323353293413,0.119760479041916,0.119760479041916,0.0958083832335329,0.0958083832335329,0.0838323353293413,0.0838323353293413,0.119760479041916,0.119760479041916,0.101796407185629,0.101796407185629,0.125748502994012,0.125748502994012,0.00598802395209581,0.00598802395209581,0.0359281437125748,0.0359281437125748,0.179640718562874,0.179640718562874,0.00598802395209581,0.00598802395209581,0.0658682634730539,0.0658682634730539,0.173652694610778,0.173652694610778,0.00598802395209581,0.00598802395209581,0.101796407185629,0.101796407185629,0.0658682634730539,0.0658682634730539,0.0239520958083832,0.0239520958083832,0.0898203592814371,0.0898203592814371,0.0838323353293413,0.0838323353293413,0.0179640718562874,0.0179640718562874,0.0598802395209581,0.0598802395209581,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.0239520958083832,0.0239520958083832,0.0119760479041916,0.0119760479041916,0.0179640718562874,0.0179640718562874,0.0898203592814371,0.0898203592814371,0.0658682634730539,0.0658682634730539,0.0838323353293413,0.0838323353293413,0.11377245508982,0.11377245508982,0.18562874251497,0.18562874251497,0.233532934131737,0.233532934131737,0.191616766467066,0.191616766467066,0.0239520958083832,0.0239520958083832,0.526946107784431,0.526946107784431,0.0778443113772455,0.0778443113772455,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.0119760479041916,0.203592814371257,0.203592814371257,0.11377245508982,0.11377245508982,0.191616766467066,0.191616766467066,0.0359281437125748,0.0359281437125748,0.161676646706587,0.161676646706587,0.0658682634730539,0.0658682634730539,0.0359281437125748,0.0359281437125748,0.0958083832335329,0.0958083832335329,0.275449101796407,0.275449101796407,0.0419161676646707,0.0419161676646707,0.101796407185629,0.101796407185629,0.00598802395209581,0.00598802395209581,0.0239520958083832,0.0239520958083832,0.0179640718562874,0.0179640718562874,0.0538922155688623,0.0538922155688623,0.167664670658683,0.167664670658683,0.119760479041916,0.119760479041916,0.029940119760479,0.029940119760479,0.191616766467066,0.191616766467066,0.0598802395209581,0.0598802395209581,0.11377245508982,0.11377245508982,0.101796407185629,0.101796407185629,0.0898203592814371,0.0898203592814371,0.0239520958083832,0.0239520958083832,0.029940119760479,0.029940119760479,0.0119760479041916,0.0119760479041916,0.125748502994012,0.125748502994012,0.0658682634730539,0.0658682634730539,0.00598802395209581,0.00598802395209581,0.029940119760479,0.029940119760479,0.00598802395209581,0.00598802395209581,0.293413173652695,0.293413173652695,0.00598802395209581,0.00598802395209581,0.137724550898204,0.137724550898204,0.0359281437125748,0.0359281437125748,0.00598802395209581,0.00598802395209581,0.029940119760479,0.029940119760479,0.00598802395209581,0.00598802395209581,0.0239520958083832,0.0239520958083832,0.131736526946108,0.131736526946108,0.0958083832335329,0.0958083832335329],[4.63473053892216,8.16467065868263,0.689101796407186,1.26467065868263,0.55688622754491,1.02694610778443,0.111377245508982,0.208383233532934,1.44191616766467,2.54011976047904,5.62766467065868,10.3281437125748,0.314071856287425,0.577844311377246,0.445508982035928,0.833532934131736,0.102994011976048,0.181437125748503,0.287125748502994,0.526946107784431,3.00718562874252,5.54550898203593,0.668263473053892,1.2502994011976,1.23592814371257,2.17724550898204,3.05357142857143,1.67094739093242,0.958083832335329,1.80119760479042,3.1185628742515,5.75089820359281,0.419560878243513,0.226480372588157,0.0986826347305389,0.186826347305389,2.03592814371257,3.82754491017964,2.67305389221557,4.92934131736527,0.779640718562874,1.45868263473054,3.71514114627887,1.99546621043627,1.57892215568862,2.98922155688623,0.779640718562874,1.45868263473054,2.05988023952096,3.62874251497006,1.89341317365269,3.49161676646707,1.16946107784431,2.18802395209581,0.0574251497005988,0.105389221556886,0.668263473053892,1.23233532934132,3.08982035928144,5.44311377245509,0.0335329341317365,0.062874251497006,0.612574850299401,1.14610778443114,2.98682634730539,5.26167664670659,0.160194610778443,0.0899850299401198,1.67760479041916,3.17604790419162,0.612574850299401,1.14610778443114,0.411976047904192,0.725748502994012,2.36620508982036,1.26663547904192,1.38155688622754,2.61556886227545,0.359281437125749,0.675449101796407,1.11377245508982,2.05389221556886,0.395919272565979,0.211452650255045,0.197365269461078,0.373652694610778,0.411976047904192,0.725748502994012,0.067065868263473,0.125748502994012,0.459431137724551,0.253652694610778,1.48023952095808,2.80239520958084,1.2251497005988,2.25928143712575,0.779640718562874,1.45868263473054,1.87497005988024,3.54970059880239,3.7125748502994,6.97964071856287,2.17185628742515,4.06347305389222,5.24685460539595,2.78989705981296,0.229700598802395,0.421556886227545,4.90059880239521,9.1688622754491,0.746526946107784,1.37005988023952,0.12562874251497,0.231137724550898,0.111377245508982,0.208383233532934,3.61916167664671,1.96706586826347,1.09107784431138,2.00239520958084,2.01005988023952,3.69820359281437,0.334131736526946,0.625149700598802,2.66443113772455,5.04431137724551,1.31736526946108,2.47664670658683,0.668263473053892,1.23233532934132,0.891017964071856,1.66706586826347,4.7377245508982,8.34610778443114,1.23929499491583,0.678788837419501,1.67760479041916,3.17604790419162,0.111377245508982,0.205389221556886,0.411976047904192,0.725748502994012,0.10059880239521,0.188622754491018,1.54649101796407,0.828560479041916,2.76311377245509,5.2311377245509,2.22754491017964,4.10778443113772,0.278443113772455,0.520958083832335,5.95313523895605,3.18134448084962,0.55688622754491,1.04191616766467,2.11616766467066,3.90239520958084,0.946706586826347,1.77125748502994,2.36402195608782,1.27619760479042,0.394730538922156,0.747305389221557,0.55688622754491,1.02694610778443,0.394278110445775,0.211470392548237,1.16946107784431,2.18802395209581,1.13293413173653,1.99580838323353,0.130744760479042,0.0719498502994012,0.278443113772455,0.520958083832335,0.104191616766467,0.055688622754491,2.72874251497006,5.10538922155689,0.104191616766467,0.055688622754491,1.28083832335329,2.39640718562874,0.334131736526946,0.625149700598802,0.102994011976048,0.181437125748503,0.576133447390932,0.312232677502139,0.0986826347305389,0.186826347305389,0.479041916167665,0.90059880239521,2.45029940119761,4.5185628742515,0.891017964071856,1.66706586826347]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>site<\/th>\n      <th>period<\/th>\n      <th>species<\/th>\n      <th>lai<\/th>\n      <th>total.vwr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"autoWidth":true,"columnDefs":[{"targets":4,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"targets":5,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-right","targets":[4,5]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+</div>
+<div id="site-level-vwr" class="section level1">
+<h1>Site-level VWR</h1>
+<pre class="r"><code># vwr.total &lt;- vwr.total %&gt;% mutate(site.f = factor(site, levels = ns_order))
+
+
+
+tar_read(vwr.wide.period) %&gt;% datatable(caption = paste0(&#39;Vegetation water requirements (cm) July 1 (half year) and Oct 1 (full year), for &#39;,cYear,&#39;, calculated according to Greenbook section III.A.1.&#39;),filter = c(&quot;top&quot;),options = list(
+  pageLength = 5, autoWidth = TRUE),colnames = c(&#39;Site&#39;,&#39;July&#39;,&#39;October&#39;)) %&gt;% formatRound(c(&#39;july&#39;,&#39;oct&#39;),2) </code></pre>
+<div id="htmlwidget-5bf762bb36ae2b4bd785" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5bf762bb36ae2b4bd785">{"x":{"filter":"top","filterHTML":"<tr>\n  <td><\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;LW1&quot;,&quot;LW2&quot;,&quot;LW3&quot;,&quot;BC1&quot;,&quot;BC2&quot;,&quot;BC3&quot;,&quot;BP1&quot;,&quot;BP2&quot;,&quot;BP3&quot;,&quot;BP4&quot;,&quot;TA3&quot;,&quot;TA4&quot;,&quot;TA5&quot;,&quot;TA6&quot;,&quot;TAC&quot;,&quot;TS1&quot;,&quot;TS2&quot;,&quot;TS3&quot;,&quot;TS4&quot;,&quot;TSC&quot;,&quot;IO1&quot;,&quot;IO2&quot;,&quot;IC1&quot;,&quot;IC2&quot;,&quot;SS1&quot;,&quot;SS2&quot;,&quot;SS3&quot;,&quot;SS4&quot;,&quot;BG2&quot;,&quot;BGC&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"0.334131736526946\" data-max=\"10.9575912326291\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none; position: absolute; width: 200px;\">\n      <div data-min=\"0.625149700598802\" data-max=\"20.0057620607841\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Vegetation water requirements (cm) July 1 (half year) and Oct 1 (full year), for 2021, calculated according to Greenbook section III.A.1.<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"],["LW1","LW2","LW3","BC1","BC2","BC3","BP1","BP2","BP3","BP4","TA3","TA4","TA5","TA6","TAC","TS1","TS2","TS3","TS4","TSC","IO1","IO2","IC1","IC2","SS1","SS2","SS3","SS4","BG2","BGC"],[4.63473053892216,2.79928143712575,6.49023952095808,6.8694503849444,4.30312707917498,7.58277159965783,4.41844311377246,3.06287425149701,3.84904191616766,3.68938622754491,3.96879116766467,3.06606342869816,0.930059880239521,3.48502994011976,10.5492982574177,5.13029940119761,2.95059880239521,3.43526946107784,10.9575912326291,3.13011736526946,8.45044627725681,0.55688622754491,4.33907185628743,1.1630871590153,2.37434505988024,0.334131736526946,2.78443113772455,1.28083832335329,0.749358426005133,3.91904191616767],[8.16467065868263,5.04011976047904,11.9209580838323,12.5535714285714,7.97165668662675,14.1175363558597,8.07664670658683,5.67964071856287,6.8437125748503,6.56797904191617,7.41410928143713,5.7408294522067,1.68458083832335,6.52035928143713,19.8396689766534,9.59041916167665,5.42874251497006,6.32574850299401,20.0057620607841,5.84229940119761,15.813015478477,1.04191616766467,8.0376746506986,2.16852960745176,4.31457709580838,0.625149700598802,5.20958083832335,2.39640718562874,1.38272027373824,7.27305389221557]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Site<\/th>\n      <th>July<\/th>\n      <th>October<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"autoWidth":true,"columnDefs":[{"targets":2,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"targets":3,"render":"function(data, type, row, meta) { return DTWidget.formatRound(data, 2, 3, \",\", \".\"); }"},{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+<pre class="r"><code># %&gt;% htmlwidgets::saveWidget(paste0(cYear,&#39;_jul_oct_vwr.html&#39;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 14393)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252   
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] htmlwidgets_1.5.2 DT_0.15           rmarkdown_2.6     forcats_0.5.0    
+ [5] stringr_1.4.0     dplyr_1.0.7       purrr_0.3.4       readr_1.4.0      
+ [9] tidyr_1.1.3       tibble_3.1.2      ggplot2_3.3.5     tidyverse_1.3.0  
+[13] targets_0.4.2     workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.6        lubridate_1.7.9   visNetwork_2.0.9  ps_1.6.0         
+ [5] assertthat_0.2.1  rprojroot_2.0.2   digest_0.6.27     utf8_1.2.1       
+ [9] R6_2.5.0          cellranger_1.1.0  backports_1.1.9   reprex_0.3.0     
+[13] evaluate_0.14     httr_1.4.2        pillar_1.6.1      rlang_0.4.11     
+[17] readxl_1.3.1      rstudioapi_0.13   data.table_1.14.0 whisker_0.4      
+[21] callr_3.7.0       blob_1.2.1        igraph_1.2.6      munsell_0.5.0    
+[25] broom_0.7.0       compiler_4.0.2    httpuv_1.5.4      modelr_0.1.8     
+[29] xfun_0.21         pkgconfig_2.0.3   htmltools_0.5.1.1 tidyselect_1.1.1 
+[33] codetools_0.2-16  fansi_0.5.0       crayon_1.4.1      dbplyr_1.4.4     
+[37] withr_2.4.2       later_1.1.0.1     grid_4.0.2        jsonlite_1.7.2   
+[41] gtable_0.3.0      lifecycle_1.0.0   DBI_1.1.0         git2r_0.27.1     
+[45] magrittr_2.0.1    scales_1.1.1      cli_3.0.0         stringi_1.5.3    
+[49] fs_1.5.0          promises_1.1.1    xml2_1.3.2        ellipsis_0.3.2   
+[53] generics_0.1.0    vctrs_0.3.8       tools_4.0.2       glue_1.4.2       
+[57] crosstalk_1.1.0.1 hms_0.5.3         processx_3.5.2    yaml_2.2.1       
+[61] colorspace_2.0-0  rvest_0.3.6       knitr_1.31        haven_2.3.1      </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

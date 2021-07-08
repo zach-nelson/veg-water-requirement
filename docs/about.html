@@ -295,7 +295,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="point_frame.html">VWR</a>
+  <a href="point_frame_vwr.html">VWR</a>
 </li>
 <li>
   <a href="about.html">About</a>
@@ -346,13 +346,13 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-07-02
+<strong>Last updated:</strong> 2021-07-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>veg-water-requirement/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>C:/Dropbox/Rprojects/veg-water-requirement/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
@@ -377,16 +377,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtree815d1af0d078d8f0d451e3dcbf62aa2b889ee440targetblank815d1afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zach-nelson/veg-water-requirement/tree/815d1af0d078d8f0d451e3dcbf62aa2b889ee440" target="_blank">815d1af</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtreeb396e3818079fd4ab48e947b35d736090f37c5catargetblankb396e38a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/zach-nelson/veg-water-requirement/tree/b396e3818079fd4ab48e947b35d736090f37c5ca" target="_blank">b396e38</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtree815d1af0d078d8f0d451e3dcbf62aa2b889ee440targetblank815d1afa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomzachnelsonvegwaterrequirementtreeb396e3818079fd4ab48e947b35d736090f37c5catargetblankb396e38a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/zach-nelson/veg-water-requirement/tree/815d1af0d078d8f0d451e3dcbf62aa2b889ee440" target="_blank">815d1af</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/zach-nelson/veg-water-requirement/tree/b396e3818079fd4ab48e947b35d736090f37c5ca" target="_blank">b396e38</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -395,18 +395,42 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.RData
+    Ignored:    analysis/.Rhistory
+    Ignored:    analysis/.Rproj.user/
     Ignored:    analysis/site_libs/
 
 Untracked files:
     Untracked:  _targets.R
-    Untracked:  _targets.yaml
     Untracked:  _targets/
+    Untracked:  code/R/
     Untracked:  code/setup.R
     Untracked:  data/point_frame.csv
     Untracked:  data/vwr_max_lookup.csv
     Untracked:  data/vwr_site_soil_designation.csv
-    Untracked:  point_frame.Rmd
-    Untracked:  point_frame.html
+    Untracked:  output/Rplot.png
+    Untracked:  output/vis.png
+    Untracked:  point_frame_vwr.Rmd
+    Untracked:  point_frame_vwr.html
+
+Unstaged changes:
+    Deleted:    analysis/_targets/meta/meta
+    Deleted:    analysis/_targets/meta/process
+    Deleted:    analysis/_targets/meta/progress
+    Deleted:    analysis/_targets/objects/cYear
+    Deleted:    analysis/_targets/objects/lai_ss
+    Deleted:    analysis/_targets/objects/lai_ss_vwrmax
+    Deleted:    analysis/_targets/objects/pointframe_lai
+    Deleted:    analysis/_targets/objects/pointframe_long
+    Deleted:    analysis/_targets/objects/pointframe_wide
+    Deleted:    analysis/_targets/objects/sitesoil
+    Deleted:    analysis/_targets/objects/vwr
+    Deleted:    analysis/_targets/objects/vwr.total
+    Deleted:    analysis/_targets/objects/vwr.wide.period
+    Deleted:    analysis/_targets/objects/vwrmax_lookt
+    Deleted:    analysis/_targets/objects/weighted.avg
+    Deleted:    analysis/functions.R
+    Deleted:    analysis/point_frame.Rmd
 
 </code></pre>
 <p>
@@ -445,6 +469,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zach-nelson/veg-water-requirement/1a26d79936c616d82d3a894a26245e3a30e905b4/docs/about.html" target="_blank">1a26d79</a>
+</td>
+<td>
+zach-nelson
+</td>
+<td>
+2021-07-02
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
